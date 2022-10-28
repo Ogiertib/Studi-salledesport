@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+// schema.prisma
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  expires      DateTime
+  userId       String   @map("user_id")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("sessions")
+}
+
+model VerificationToken {
+  id         Int      @id @default(autoincrement())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+model User {
+  id String @id @default(cuid())
+  name String?
+  email String?   @unique
+  emailVerified DateTime?
+  accounts Account[]
+  sessions Session[]
+  role Int @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  profiles Profile[]
+  clients Client[]
+  franchises Franchise[]
+  @@map(name: "users")
+}
+
+model Profile {
+  id Int @id @default(autoincrement())
+  role Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  userId       String   @map("user_id")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map(name: "profiles")
+}
+
+model Client {
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  planning Boolean?
+  drink Boolean?
+  newsletter Boolean?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  userId       String   @map("user_id")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  franchises Franchise[]
+  @@map(name: "clients")
+}
+
+model Franchise {
+  id Int @id @default(autoincrement())
+  name String
+  address String?
+  active Boolean @default(false)
+  planning Boolean?
+  drink Boolean?
+  newsletter Boolean?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  userId       String   @map("user_id")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clientId Int
+  client Client @relation(fields: [clientId], references: [id])
+  @@map(name: "franchises")
+}
