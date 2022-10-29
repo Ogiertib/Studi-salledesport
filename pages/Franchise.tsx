@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Header from '../components/Header'
-import { useState, useEffect } from 'react'
+import { PlusIcon} from '@heroicons/react/24/outline'
 
-export default function Index() {
+export default function Franchise() {
  
   return (
     <div>
@@ -22,10 +22,22 @@ export default function Index() {
         </header>
 
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-          {<p>user</p>}
+          {<div>
+                <div> Ajouter une franchise</div>
+                <a href="NewFranchise">
+                    <button
+                        type="button"
+                        
+                        className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        >
+                        <PlusIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                </a>
+            </div>
+          }
           <div className="px-4 py-6 sm:px-0">
             
-            <div className="h-96 rounded-lg border-4 border-dashed border-gray-200">
+            <div className="h-96 rounded-lg border-4 border border-gray-200">
               <p>le .map ici</p>
             </div>
           </div>
