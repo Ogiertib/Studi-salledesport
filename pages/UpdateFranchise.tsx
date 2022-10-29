@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Header from '../components/Header'
-import { PlusIcon} from '@heroicons/react/24/outline'
+import { ArrowRightIcon, PlusIcon, TrashIcon} from '@heroicons/react/24/outline'
 
 export default function NewFranchise() {
  const onSubmit =(d :any)=> alert(JSON.stringify(d))
@@ -23,7 +23,7 @@ export default function NewFranchise() {
 
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           {<div>
-                <div>Creation d'une franchise</div>
+                <div>Modification d'une franchise</div>
                 
             </div>
           }
@@ -33,12 +33,21 @@ export default function NewFranchise() {
               <form onSubmit={onSubmit}>
                 <div>
                     <label>Name
-                        <input name="name"className="rounded-lg m-2 border-4 border border-gray-400"></input>
+                        <input name="name"
+                        className="rounded-lg m-2 border-4 border border-gray-400"
+                        value="name"
+                        >
+                        </input>
                     </label>
                 </div>
                 <div>
                     <label>Adresse
-                        <input name="address" className="rounded-lg m-2 border-4 border border-gray-400"></input>
+                        <input 
+                        name="address" 
+                        className="rounded-lg m-2 border-4 border border-gray-400"
+                        value="adresse" 
+                        >
+                        </input>
                     </label>
                 </div>
                 <div>
@@ -85,10 +94,21 @@ export default function NewFranchise() {
                 </div>
                 <input 
                     type="submit" 
-                    value="Créer"  
-                    className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    value="Modifier"  
+                    className="rounded-full bg-gray-800 p-1 m-2 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 </input>
               </form>
+              <div>
+                <a href="UpdateFranchise"> 
+                    <button
+                        type="button"
+                        className="rounded-full bg-red-600 p-1 m-2 text-neutral-50 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray focus:ring-offset-2 focus:ring-offset-gray-800"
+                        >
+                        Supprimer
+                    </button>
+                </a>
+            </div>
+           
             </div>
           </div>
           {}

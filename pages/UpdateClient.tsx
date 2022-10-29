@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Header from '../components/Header'
-import { PlusIcon} from '@heroicons/react/24/outline'
+import { ArrowRightIcon, PlusIcon, TrashIcon} from '@heroicons/react/24/outline'
 
 export default function NewFranchise() {
  const onSubmit =(d :any)=> alert(JSON.stringify(d))
@@ -17,13 +17,13 @@ export default function NewFranchise() {
       <main>
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Franchise</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Client</h1>
           </div>
         </header>
 
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           {<div>
-                <div>Creation d'une franchise</div>
+                <div>Modification d'un client</div>
                 
             </div>
           }
@@ -33,18 +33,41 @@ export default function NewFranchise() {
               <form onSubmit={onSubmit}>
                 <div>
                     <label>Name
-                        <input name="name"className="rounded-lg m-2 border-4 border border-gray-400"></input>
+                        <input name="name"
+                        className="rounded-lg m-2 border-4 border border-gray-400"
+                        value="name"
+                        >
+                        </input>
                     </label>
                 </div>
                 <div>
                     <label>Adresse
-                        <input name="address" className="rounded-lg m-2 border-4 border border-gray-400"></input>
+                        <input 
+                        name="address" 
+                        className="rounded-lg m-2 border-4 border border-gray-400"
+                        value="adresse" 
+                        >
+                        </input>
                     </label>
                 </div>
                 <div>
-                <label>Active
+                <label>Gérer les plannings
                     <input 
-                        name="address" 
+                        name="planning" 
+                        type="checkbox" 
+                        className="rounded-lg border-4 m-2 border border-gray-400">
+                    </input>
+                </label>
+                <label>Gérer les boissons
+                    <input 
+                        name="drink" 
+                        type="checkbox" 
+                        className="rounded-lg border-4 m-2 border border-gray-400">
+                    </input>
+                </label>
+                <label>Gérer la newsletter
+                    <input 
+                        name="newsletter" 
                         type="checkbox" 
                         className="rounded-lg border-4 m-2 border border-gray-400">
                     </input>
@@ -71,24 +94,23 @@ export default function NewFranchise() {
                     </button>
                 </a>
                 </div>
-                <div>
-                <label>Client de la franchise
-                    <select
-                        name="ClientId" 
-                        className="rounded-lg border-4 m-2 border border-gray-400"
-                        >
-                        <option value="">Selection d'un client</option>
-                        <option value="">Salle muscu +</option>
-                        <option value="">L'orange Bleu sport</option>
-                    </select>
-                </label>
-                </div>
                 <input 
                     type="submit" 
-                    value="Créer"  
-                    className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    value="Modifier"  
+                    className="rounded-full bg-gray-800 p-1 m-2 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 </input>
               </form>
+              <div>
+                <a href="UpdateFranchise"> 
+                    <button
+                        type="button"
+                        className="rounded-full bg-red-600 p-1 m-2 text-neutral-50 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray focus:ring-offset-2 focus:ring-offset-gray-800"
+                        >
+                        Supprimer
+                    </button>
+                </a>
+            </div>
+           
             </div>
           </div>
           {}

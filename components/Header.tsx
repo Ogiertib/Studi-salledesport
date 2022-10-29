@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { UserIcon} from '@heroicons/react/24/outline'
+import Image from 'next/image'
 
 const navigation = [
   { name: 'Franchise', href: 'Franchise', current: false },
@@ -31,16 +32,20 @@ export default function Header() {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
+                <div className="flex flex-shrink-1 items-center">
+                  <Image
+                    className="block h-8 w-auto lg:hidden invert"
+                    src="/salledesport.png"
+                    alt="SalleDeSport"
+                    width={100}
+                    height={1000}
                   />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  <Image
+                    className="hidden h-8 w-auto lg:block fill-white invert"
+                    src="/salledesport.png"
                     alt="Your Company"
+                    width={800}
+                    height={800}
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">

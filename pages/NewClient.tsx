@@ -77,17 +77,16 @@ export default function NewClient() {
                 <a href="NewUser">Ajouter un contact
                     <button
                         type="button"
-                        className="rounded-full m-2 bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        className="rounded-full m-2 bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         >
                         <PlusIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
                 </a>
                 </div>
-               
                 <input 
                     type="submit" 
-                    value="ajouter"  
-                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    value="Créer"  
+                    className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 </input>
               </form>
             </div>
