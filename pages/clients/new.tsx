@@ -3,11 +3,26 @@ import Header from '../../components/Header';
 import { PlusIcon} from '@heroicons/react/24/outline'
 import Modal from "react-modal";
 import React, { Component, FunctionComponent, useState } from 'react';
+import { useQuery } from 'react-query';
+import { useForm } from 'react-hook-form';
 
 
 
 export default function New() {
- const onSubmit =(d :any)=> alert(JSON.stringify(d))
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = async (data: any) => {
+        await fetch('/api/clients', {method: 'POST', body: JSON.stringify(data)})
+        await fetch('/client')
+      }
+  const { data } = useQuery(
+    'clients',
+    async () => {
+      const res = await fetch(`/api/users`)
+      return await res.json()
+    }
+  )
+  
   return (
     <div>
       <Head>
@@ -33,34 +48,38 @@ export default function New() {
           <div className="px-4 py-6 sm:px-0">
             
             <div className="h-96 w-200 rounded-lg border-4 border border-gray-400">
-              <form onSubmit={onSubmit}>
+              <form onSubmit={handleSubmit(onSubmit)} method='POST' >
                 <div>
                     <label>Nom du client
-                        <input name="name"className="rounded-lg m-2 border-4 border border-gray-400"></input>
+                        <input {...register('name')} name="name"className="rounded-lg m-2 border-4 border border-gray-400"></input>
                     </label>
                 </div>
                 <div>
-                    <label>Siege sociale
-                        <input name="address" className="rounded-lg w-200 m-2 w-900 border-4 border border-gray-400"></input>
+                    <label>Siège sociale
+                        <input {...register('address')} name="address" className="rounded-lg w-200 m-2 w-900 border-4 border border-gray-400"></input>
                     </label>
                 </div>
                 <div>
                 <label>Gérer les plannings 
-                    <input 
-                        name="planning" 
+                    <input  
+                        id="planning"
                         type="checkbox" 
-                        className="rounded-lg m-2 border-4 border border-gray-400">
+                        className="rounded-lg m-2 border-4 border border-gray-400"
+                        {...register('planning')}>
                     </input>
                 </label>
                 <label>Gérer les boissons
                     <input 
-                        name="Drink" 
+                        id="drink"
+                        {...register('drink')}
                         type="checkbox" 
                         className="rounded-lg m-2 border-4 border border-gray-400">
                     </input>
                 </label>
                 <label>Création newsletter
                     <input 
+                        id='newsletter'
+                        {...register('newsletter')}
                         name="newsletter" 
                         type="checkbox" 
                         className="rounded-lg m-2 border-4 border border-gray-400">
@@ -70,15 +89,14 @@ export default function New() {
                 <div>
                 <label>Contact
                     <select
-                        name="userId" 
+                        name="user" 
                         className="rounded-lg m-2 border-4 border border-gray-400"
                         >
-                        <option value="">Selection d'un utilisateur</option>
-                        <option value="">George</option>
-                        <option value="">John</option>
+                       {data && data.map((userId: any) => (
+                         <option  key={userId.id} value={userId.id} {...register('userId')}>{userId.email}</option>))}
                     </select>
                 </label>
-                <a href="pages/user/new.tsx">Ajouter un contact
+                <a href={`/user/new`}>Ajouter un contact
                     <button
                         type="button"
                         onClick={onSubmit}
@@ -86,7 +104,6 @@ export default function New() {
                         >
                         <PlusIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
-                    
                 </a>
                 </div>
                 <input 

@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   switch (method) {
     case 'GET':
-      const client = await prisma.client.findUnique({where: {id: id as string}})
+      const client = await prisma.client.findUnique({where: {id: id as string}, include: {user : true, franchises : true}})
       res.status(200).json(client)
       break
     case 'PUT':

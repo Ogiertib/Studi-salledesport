@@ -3,6 +3,8 @@ import Header from '../../../components/Header'
 import { ArrowRightIcon, ArrowUpOnSquareIcon } from '@heroicons/react/24/outline'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { Dialog } from '@headlessui/react'
 
 export default function Client() {
  const router = useRouter()
@@ -13,12 +15,6 @@ export default function Client() {
     async () => {
       const res = await fetch(`/api/franchises/${id}`)
       return await res.json()
-    }
-  )
-  const { } = useQuery(
-    ['users' , id],
-    async () => {
-      const res = await fetch(`/api/users/${data.userId}`)
     }
   )
 
@@ -41,7 +37,7 @@ export default function Client() {
 
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           {<div>
-                <a href="pages/franchise/[id]/update.tsx">
+                <a href={`/franchises/${data?.id}/edit`}>
                     <button
                         type="button"
                         className="rounded-full bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -53,19 +49,16 @@ export default function Client() {
           <div className="px-4 py-6 sm:px-0">
             
             <div className="h-96 rounded-lg border-4 border border-gray-400">
-              <p>Nom de la franchise {data?.name}</p>
-              <p>la franchise est : {data?.active ? 'Active' : 'Désactivé'}</p>
-              <p>adresse de la franchise {data?.address}</p>
-              <p>Contact {data?.userId.email}</p>
-              <p>la franchise appartient au client</p>
-              <p>la franchise peut : 
-                {data?.drink?'Vendre des boissons': ''}
-                {data?.planning ? 'Gérer les plannings' : ''}
-                {data?.newsletter ? 'gérer les newsletter': ''}
+              <p>Nom de la franchise :<strong>{data?.name}</strong></p>
+              <p>La franchise est : <strong>{data?.active ? 'Active' : 'Désactivé'}</strong></p>
+              <p>Adresse de la franchise :<strong>{data?.address}</strong></p>
+              <p>Contact : <strong> {data?.user.email}</strong></p>
+              <p>La franchise appartient au client :<strong>{data?.client.name}</strong></p>
+              <p>La franchise peut : <strong>
+                {data?.drink?'Vendre des boissons': ''} {data?.planning ? 'Gérer les plannings' : ''} {data?.newsletter ? 'gérer les newsletter': ''}
+                </strong>
                 </p>
-              
             </div>
-            
           </div>
           {}
         </div>

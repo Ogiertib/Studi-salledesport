@@ -2,8 +2,17 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import { ArrowRightIcon, PlusIcon } from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
+import { useQuery } from 'react-query'
 
 export default function Index() {
+  const { data } = useQuery(
+    'clients',
+    async () => {
+      const res = await fetch('/api/clients')
+      return await res.json()
+    }
+  )
+  console.log(data)
   const [searchTerm, setSearchTerm]= useState("")
   return (
     <div>
@@ -18,7 +27,7 @@ export default function Index() {
       <main>
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Client</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">{data?.name}</h1>
             
           </div>
         </header>
@@ -36,7 +45,7 @@ export default function Index() {
                  onChange={(e) => {setSearchTerm(e.target.value)}}
              />
 
-                <a href="pages/client/new.tsx" className='col-end-30'> Ajouter un client
+                <a href="/clients/new" className='col-end-30'> Ajouter un client
                     <button
                         type="button"
                         className="rounded-full m-2 bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -48,20 +57,25 @@ export default function Index() {
             </div>}
           <div className="px-4 py-6 sm:px-0">
             
-            <div className="h-96 rounded-lg border-4 border border-gray-200">
-              <p>le .map ici</p>
-              <div>
-                <div> Montrer le client</div>
-                <a href="pages/client/[id]/index.tsx">
-                    <button
-                        type="button"
-                        
-                        className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        >
-                        <ArrowRightIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
+            <div className="">
+            
+              {data?.filter((item :any)=>{
+                return item.name.toUpperCase().includes(searchTerm.toUpperCase())
+              }).map((item: any) => (
+               <div className=" m-2 rounded-lg border-4 border border-gray-400 hover:text-gray-400">
+                 <a href={`/clients/${item?.id}`} >
+                  <div key={item.id} >
+                    <p>Nom : {item.name}</p>
+                    <p>Adresse : {item.address}</p>
+                    <p>Contact : {item.user.email}</p>
+                    <p>Le client peut : {item.drink ? 'Vendre des boissons' : ''} {item?.planning ? 'Gérer les plannings' : ''} {item?.newsletter ? 'Gérer les newsletter': ''}
+                  </p>
+                  </div>
                 </a>
-              </div>
+                </div>
+              ))}
+              
+             
             </div>
           </div>
           {}

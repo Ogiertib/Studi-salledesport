@@ -1,9 +1,22 @@
 import Head from 'next/head'
 import Header from '../../../components/Header'
 import { ArrowRightIcon, ArrowUpOnSquareIcon } from '@heroicons/react/24/outline'
+import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
 
 export default function Client() {
- 
+  const router = useRouter()
+ const id = router.query.id
+
+ const { data } = useQuery(
+  ['clients', id],
+  async () => {
+    const res = await fetch(`/api/clients/${id}`)
+    return await res.json()
+  }
+)
+console.log(data)
+
   return (
     <div>
       <Head>
@@ -15,14 +28,14 @@ export default function Client() {
       <main>
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Client .name</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">{data?.name}</h1>
             
           </div>
         </header>
 
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           {<div>
-                <a href="pages/client/[id]/update.tsx">
+                <a href={`/clients/${data?.id}/edit`} >
                     <button
                         type="button"
                         className="rounded-full bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -34,11 +47,11 @@ export default function Client() {
           <div className="px-4 py-6 sm:px-0">
             
             <div className="h-96 rounded-lg border-4 border border-gray-400">
-              <p>Nom du client</p>
-              <p>Siege sociale</p>
-              <p>Contact</p>
-              <p>Le client possede : ex : cette franchise</p>
-              <p>la client peut : ex : gerer les plannings</p>
+              <p>Nom du client : {data?.name}</p>
+              <p>Siege sociale : {data?.address}</p>
+              <p>Contact : {data?.user.email}</p>
+              <p>Le client possede : {data?.franchises.name}</p>
+              <p>Le client peut : {data?.drink ? 'Vendre des boissons' : ''} {data?.planning ? 'Gérer les plannings' : ''} {data?.newsletter ? 'Gérer les newsletter': ''}</p>
             </div>
           </div>
           {}

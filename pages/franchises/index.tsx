@@ -18,7 +18,7 @@ export default function Index() {
       return await res.json()
     }
   )
-
+console.log(data)
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
       <header className="bg-white shadow">
@@ -58,28 +58,28 @@ export default function Index() {
                 
             </div>
          </div>
-          <div className="px-4 py-6 sm:px-0">
-            <div className="h-96 rounded-lg border-4 border border-gray-200">
-              {data && data.map((franchise: any) => (
-                <div key={franchise.id}>
-                  <p>Nom : {franchise.name}</p>
-                  <a href={`/franchises/${franchise.id}/`}>Show More</a>
+         <div className="h-96 rounded-lg border-4 border border-gray-200">
+            {data?.filter((item :any)=>{
+                return item.name.toUpperCase().includes(searchTerm.toUpperCase()) 
+                && checked ? item.active : item.name.toUpperCase().includes(searchTerm.toUpperCase()) 
+            }).map((item : any) => (
+             <div className=" m-2 rounded-lg border-4 border border-gray-400 hover:text-gray-400">
+               <a href={`/franchises/${item.id}`} >
+                <div key={item.id} >
+                  <p>Nom : {item?.name}</p>
+                  <p>La franchise est : {item.active ? "Active" : "Désactive"}</p>
+                  <p>Contact : {item?.user.email}</p>
+                  <p>Le client peut : {item.drink ? 'Vendre des boissons' : ''} {item.planning ? 'Gérer les plannings' : ''} {item.newsletter ? 'Gérer les newsletter': ''}
+                </p>
                 </div>
-              ))}
-              <div>
-                <div> Montrer la Franchise</div>
-                <a href="pages/franchise/[id]/index.tsx">
-                    <button
-                      type="button"
-                      className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                      >
-                        <ArrowRightIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-                </a>
-            </div>
-            </div>
+              </a>
+              </div>
+            ))}
+            
+           
           </div>
-        </div>
+          </div>
+       
     </AuthenticatedLayout>
   )
 }

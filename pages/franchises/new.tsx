@@ -1,14 +1,23 @@
 import { PlusIcon } from '@heroicons/react/24/outline'
 import AuthenticatedLayout from '../../components/AuthenticatedLayout'
 import { useForm } from 'react-hook-form'
+import { useQuery } from 'react-query'
+import { METHODS } from 'http'
 
 export default function New() {
   const { register, handleSubmit } = useForm()
 
-  const onSubmit = (data: any) => {
-    //todo fetch post /api/franchises
+  const onSubmit = async (data: any) => {
+    const req = await fetch(`/api/franchises`,{method :"POST"} )
   }
-
+  const { data } = useQuery(
+    'clients',
+    async () => {
+      const res = await fetch(`/api/users`)
+      return await res.json()
+    }
+  )
+  
   return (
     <AuthenticatedLayout pageTitle={'Créer une franchise'}>
       <header className="bg-white shadow">
@@ -46,12 +55,11 @@ export default function New() {
                   name="userId"
                   className="rounded-lg m-2 border-4 border border-gray-400"
                 >
-                  <option value="">Selection d'un utilisateur</option>
-                  <option value="">George</option>
-                  <option value="">John</option>
+                   {data && data.map((users: any) => (
+                         <option  key={users.id} value={users.id}>{users.name} {users.email}</option>))}
                 </select>
               </label>
-              <a href="pages/user/new.tsx">
+              <a href={`/user/new`}>
                 Ajouter un contact
                 <button
                   type="button"

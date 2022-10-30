@@ -1,8 +1,40 @@
 import Head from 'next/head'
 import Header from '../../../components/Header'
 import { ArrowRightIcon, PlusIcon, TrashIcon} from '@heroicons/react/24/outline'
+import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
+import { useState, Fragment } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+
+
 
 export default function NewFranchise() {
+  const router = useRouter()
+  const id = router.query.id
+  let [isOpenUpdate, setIsOpenUpdate] = useState(false)
+  function openUpdateModal() {
+    setIsOpenUpdate(true)
+  }
+  function closeUpdateModal() {
+    setIsOpenUpdate(false)
+  }
+  let [isOpen, setIsOpen] = useState(false)
+  function openModal() {
+    setIsOpen(true)
+  }
+  function closeModal() {
+    setIsOpen(false)
+  }
+
+   const { data } = useQuery(
+     ['franchises', id],
+     async () => {
+       const res = await fetch(`/api/franchises/${id}`)
+       return await res.json()
+     }
+   )
+console.log(data)
+
  const onSubmit =(d :any)=> alert(JSON.stringify(d))
   return (
     <div>
@@ -35,7 +67,7 @@ export default function NewFranchise() {
                     <label>Name
                         <input name="name"
                         className="rounded-lg m-2 border-4 border border-gray-400"
-                        value="name"
+                        placeholder={data?.name}
                         >
                         </input>
                     </label>
@@ -45,7 +77,7 @@ export default function NewFranchise() {
                         <input 
                         name="address" 
                         className="rounded-lg m-2 border-4 border border-gray-400"
-                        value="adresse" 
+                        placeholder={data?.address}
                         >
                         </input>
                     </label>
@@ -55,7 +87,10 @@ export default function NewFranchise() {
                     <input 
                         name="address" 
                         type="checkbox" 
-                        className="rounded-lg border-4 m-2 border border-gray-400">
+                        className="rounded-lg border-4 m-2 border border-gray-400"
+                        value={data?.active}
+                        checked = {data?.active}
+                        >
                     </input>
                 </label>
                 </div>
@@ -65,15 +100,12 @@ export default function NewFranchise() {
                         name="userId" 
                         className="rounded-lg m-2 border-4 border border-gray-400"
                         >
-                        <option value="">Selection d'un utilisateur</option>
-                        <option value="">George</option>
-                        <option value="">John</option>
+                       
                     </select>
                 </label>
-                <a href="pages/user/new.tsx">Ajouter un contact
+                <a href={`/user/new`}>Ajouter un contact
                     <button
                         type="button"
-                        
                         className="rounded-full bg-green-700 m-2 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         >
                         <PlusIcon className="h-6 w-6" aria-hidden="true" />
@@ -92,26 +124,138 @@ export default function NewFranchise() {
                     </select>
                 </label>
                 </div>
-                <input 
-                    type="submit" 
-                    value="Modifier"  
-                    className="rounded-full bg-gray-800 p-1 m-2 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                </input>
+                <button
+                    onClick={openUpdateModal}
+                    type="button" 
+                    className="rounded-full bg-gray-800 p-1 m-2 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    >
+                    Modifier
+                </button>
               </form>
               <div>
-                <a href="pages/franchise/[id]/update.tsx">
                     <button
+                        onClick={openModal}
                         type="button"
                         className="rounded-full bg-red-600 p-1 m-2 text-neutral-50 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray focus:ring-offset-2 focus:ring-offset-gray-800"
                         >
                         Supprimer
                     </button>
-                </a>
+                
             </div>
            
             </div>
           </div>
-          {}
+          {} <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                   Etes vous sur de vouloir supprimer la franchise?
+                  </Dialog.Title>
+                  <div className="mt-2">
+                  </div>
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-green-300 px-4 py-2 text-sm font-medium text-white-200 hover:bg-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-800 focus-visible:ring-offset-2"
+                      onClick={closeModal}
+                    >
+                     Valider
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex m-2 justify-center rounded-md border border-transparent bg-red-400 px-4 py-2 text-sm font-medium text-white-200 hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-800 focus-visible:ring-offset-2"
+                      onClick={closeModal}
+                    >
+                     Annuler
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      <Transition appear show={isOpenUpdate} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeUpdateModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                   Etes vous sur de vouloir modifier la franchise?
+                  </Dialog.Title>
+                  <div className="mt-2">
+                  </div>
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-green-300 px-4 py-2 text-sm font-medium text-white-200 hover:bg-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-800 focus-visible:ring-offset-2"
+                      onClick={closeUpdateModal}
+                    >
+                     Valider
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex m-2 justify-center rounded-md border border-transparent bg-red-400 px-4 py-2 text-sm font-medium text-white-200 hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-800 focus-visible:ring-offset-2"
+                      onClick={closeUpdateModal}
+                    >
+                     Annuler
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
         </div>
       </main>
 

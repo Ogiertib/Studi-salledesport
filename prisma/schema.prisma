@@ -83,7 +83,7 @@ model Profile {
 model Client {
   id String @id @default(cuid())
   name String
-  email String
+  address String
   planning Boolean?
   drink Boolean?
   newsletter Boolean?

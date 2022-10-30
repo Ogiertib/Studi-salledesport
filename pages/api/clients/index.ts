@@ -6,11 +6,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   switch (method) {
     case 'GET':
-      const franchises = await prisma.franchise.findMany()
-      res.status(200).json(franchises)
+      const clients = await prisma.client.findMany({include : {user: true, franchises : true}})
+      res.status(200).json(clients)
       break
     case 'POST':
-      const franchise = await prisma.franchise.create({
+      const client = await prisma.client.create({
         data: JSON.parse(req.body),
       })
       break
