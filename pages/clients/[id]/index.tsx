@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Header from 'components/Header'
+import Header from '../../../components/Header'
 import { ArrowRightIcon, ArrowUpOnSquareIcon } from '@heroicons/react/24/outline'
 
 export default function Client() {
