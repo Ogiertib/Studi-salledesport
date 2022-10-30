@@ -15,6 +15,13 @@ export default function Client() {
       return await res.json()
     }
   )
+  const { } = useQuery(
+    ['users' , id],
+    async () => {
+      const res = await fetch(`/api/users/${data.userId}`)
+    }
+  )
+
   console.log(data)
   return (
     <div>
@@ -27,7 +34,7 @@ export default function Client() {
       <main>
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Franchise  </h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Franchise {data?.name} </h1>
             
           </div>
         </header>
@@ -46,12 +53,16 @@ export default function Client() {
           <div className="px-4 py-6 sm:px-0">
             
             <div className="h-96 rounded-lg border-4 border border-gray-400">
-              <p>Nom de la franchise</p>
-              <p>la franchise est : active/désactive</p>
-              <p>adresse de la franchise</p>
-              <p>Contact</p>
+              <p>Nom de la franchise {data?.name}</p>
+              <p>la franchise est : {data?.active ? 'Active' : 'Désactivé'}</p>
+              <p>adresse de la franchise {data?.address}</p>
+              <p>Contact {data?.userId.email}</p>
               <p>la franchise appartient au client</p>
-              <p>la franchise peut : </p>
+              <p>la franchise peut : 
+                {data?.drink?'Vendre des boissons': ''}
+                {data?.planning ? 'Gérer les plannings' : ''}
+                {data?.newsletter ? 'gérer les newsletter': ''}
+                </p>
               
             </div>
             
