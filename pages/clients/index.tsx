@@ -56,32 +56,28 @@ export default function Index() {
                 </div>
             </div>}
           <div className="px-4 py-6 sm:px-0">
-            
-            <div className="">
-            
+            <div className="">          
               {data?.filter((item :any)=>{
-                return item.name.toUpperCase().includes(searchTerm.toUpperCase())
+                return item?.name.toUpperCase().includes(searchTerm.toUpperCase())
               }).map((item: any) => (
                <div className=" m-2 rounded-lg border-4 border border-gray-400 hover:text-gray-400">
                  <a href={`/clients/${item?.id}`} >
-                  <div key={item.id} >
-                    <p>Nom : {item.name}</p>
-                    <p>Adresse : {item.address}</p>
-                    <p>Contact : {item.user.email}</p>
-                    <p>Le client peut : {item.drink ? 'Vendre des boissons' : ''} {item?.planning ? 'Gérer les plannings' : ''} {item?.newsletter ? 'Gérer les newsletter': ''}
+                  <div key={item?.id} >
+                    <p>Nom : {item?.name}</p>
+                    <p>Adresse : {item?.address}</p>
+                    <p>Contact : {item?.user.email}</p>
+                    <p>Le client peut : {item?.drink ? 'Vendre des boissons' : ''} {item?.planning ? 'Gérer les plannings' : ''} {item?.newsletter ? 'Gérer les newsletter': ''}
                   </p>
                   </div>
                 </a>
                 </div>
               ))}
-              
-             
+
             </div>
           </div>
           {}
         </div>
       </main>
-
     </div>
   )
 }

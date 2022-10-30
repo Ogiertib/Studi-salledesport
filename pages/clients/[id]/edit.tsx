@@ -5,10 +5,16 @@ import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { useState, Fragment } from 'react'
+import { useForm } from 'react-hook-form'
 
 export default function NewFranchise() {
   const router = useRouter()
   const id = router.query.id
+  const { register, handleSubmit } = useForm()
+  const onSubmit = async (data: any) => {
+    await fetch(`/api/clients/${id}`, {method: 'PUT', body: JSON.stringify(data)})
+    router.push(`/clients/${id}`)
+  }
   let [isOpenUpdate, setIsOpenUpdate] = useState(false)
   function openUpdateModal() {
     setIsOpenUpdate(true)
@@ -23,15 +29,21 @@ export default function NewFranchise() {
   function closeModal() {
     setIsOpen(false)
   }
-  const { data } = useQuery(
+  const { data : client} = useQuery(
    ['clients', id],
    async () => {
      const res = await fetch(`/api/clients/${id}`)
      return await res.json()
    }
  )
- console.log(data?.franchises.name)
- const onSubmit =(d :any)=> alert(JSON.stringify(d))
+ const { data : user} = useQuery(
+  ['users', id],
+  async () => {
+    const res = await fetch(`/api/users`)
+    return await res.json()
+  }
+)
+
   return (
     <div>
       <Head>
@@ -45,7 +57,7 @@ export default function NewFranchise() {
       <main>
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Client</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Client {client?.name}</h1>
           </div>
         </header>
 
@@ -58,12 +70,16 @@ export default function NewFranchise() {
           <div className="px-4 py-6 sm:px-0">
             
             <div className="h-96 rounded-lg m-2 border-4 border border-gray-200">
-              <form onSubmit={onSubmit}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label>Name
-                        <input name="name"
+
+                        <input 
+                        {...register('name')}
+                        id='name'
+                        type='text'
                         className="rounded-lg m-2 border-4 border border-gray-400"
-                        placeholder={data?.name}
+                        defaultValue={client?.name}
                         >
                         </input>
                     </label>
@@ -71,9 +87,11 @@ export default function NewFranchise() {
                 <div>
                     <label>Adresse
                         <input 
+                        {...register('address')}
+                        id="address"
                         name="address" 
                         className="rounded-lg m-2 border-4 border border-gray-400"
-                        placeholder={data?.address}
+                        defaultValue={client?.address}
                         >
                         </input>
                     </label>
@@ -81,38 +99,43 @@ export default function NewFranchise() {
                 <div>
                 <label>Gérer les plannings
                     <input 
+                        {...register('planning')}
+                        
                         name="planning" 
                         type="checkbox" 
-                        checked = {data?.planning}
+                        checked = {client?.planning}
                         className="rounded-lg border-4 m-2 border border-gray-400">
                     </input>
                 </label>
                 <label>Gérer les boissons
                     <input 
+                        {...register('drink')}
                         name="drink" 
                         type="checkbox" 
-                        checked = {data?.drink}
+                        checked = {client?.drink}
                         className="rounded-lg border-4 m-2 border border-gray-400">
                     </input>
                 </label>
                 <label>Gérer la newsletter
                     <input 
+                        {...register('newsletter')}
+                        id='newsletter'
                         name="newsletter" 
                         type="checkbox" 
-                        checked = {data?.newsletter}
+                        
                         className="rounded-lg border-4 m-2 border border-gray-400">
                     </input>
                 </label>
                 </div>
                 <div>
                 <label>Contact
-                    <select
+                    <select 
+                        {...register('userId')}
                         name="userId" 
                         className="rounded-lg m-2 border-4 border border-gray-400"
-                        >
-                          {data?.franchises && data.franchises.map((franchises: any) => (
-                         
-                          <option  key={franchises.id} value={franchises.id}>{franchises.name}</option>
+                        > <option selected={true} value={client?.user.email}>{client?.user.email}</option>
+                          {user && user.map((user: any) => (
+                          <option  key={user.id} value={user.id}>{user.email}</option>
               ))}
                     </select>
                 </label>
@@ -132,6 +155,62 @@ export default function NewFranchise() {
                     className="rounded-full bg-gray-800 p-1 m-2 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >Modifier
                 </button>
+               
+      <Transition appear show={isOpenUpdate} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeUpdateModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                   Etes vous sur de vouloir modifier le client?
+                  </Dialog.Title>
+                  <div className="mt-2">
+                  </div>
+                  <div className="mt-4">
+                    <button
+                      type="submit"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-green-300 px-4 py-2 text-sm font-medium text-white-200 hover:bg-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-800 focus-visible:ring-offset-2"
+                      onClick={handleSubmit(onSubmit)}
+                    >
+                     Valider
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex m-2 justify-center rounded-md border border-transparent bg-red-400 px-4 py-2 text-sm font-medium text-white-200 hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-800 focus-visible:ring-offset-2"
+                      onClick={closeUpdateModal}
+                    >
+                     Annuler
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
               </form>
               <div>
                     <button
@@ -200,62 +279,7 @@ export default function NewFranchise() {
             </div>
           </div>
         </Dialog>
-      </Transition>
-      <Transition appear show={isOpenUpdate} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeUpdateModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                   Etes vous sur de vouloir modifier le client?
-                  </Dialog.Title>
-                  <div className="mt-2">
-                  </div>
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-green-300 px-4 py-2 text-sm font-medium text-white-200 hover:bg-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-800 focus-visible:ring-offset-2"
-                      onClick={closeUpdateModal}
-                    >
-                     Valider
-                    </button>
-                    <button
-                      type="button"
-                      className="inline-flex m-2 justify-center rounded-md border border-transparent bg-red-400 px-4 py-2 text-sm font-medium text-white-200 hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-800 focus-visible:ring-offset-2"
-                      onClick={closeUpdateModal}
-                    >
-                     Annuler
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+        </Transition>
         </div>
       </main>
 

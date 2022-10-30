@@ -5,15 +5,16 @@ import Modal from "react-modal";
 import React, { Component, FunctionComponent, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 
 
 
 export default function New() {
   const { register, handleSubmit } = useForm()
-
+  const router = useRouter()
   const onSubmit = async (data: any) => {
         await fetch('/api/clients', {method: 'POST', body: JSON.stringify(data)})
-        await fetch('/client')
+         router.push('/clients')
       }
   const { data } = useQuery(
     'clients',
@@ -89,28 +90,22 @@ export default function New() {
                 <div>
                 <label>Contact
                     <select
-                        name="user" 
+                        {...register('userId')}
+                        name="userId" 
                         className="rounded-lg m-2 border-4 border border-gray-400"
                         >
-                       {data && data.map((userId: any) => (
-                         <option  key={userId.id} value={userId.id} {...register('userId')}>{userId.email}</option>))}
+                       {data && data.map((user: any) => (
+                         <option  key={user.id} value={user.id} >{user.email}</option>))}
                     </select>
                 </label>
-                <a href={`/user/new`}>Ajouter un contact
-                    <button
-                        type="button"
-                        onClick={onSubmit}
-                        className="rounded-full m-2 bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        >
-                        <PlusIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
+                <a href={`/user/new`}  className="rounded-full m-2 bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">Ajouter
                 </a>
                 </div>
-                <input 
+                <button
                     type="submit" 
-                    value="Créer"  
-                    className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                </input>
+                    className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    >Créer
+                </button>
               </form>
             </div>
           </div>

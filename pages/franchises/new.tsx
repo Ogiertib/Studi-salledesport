@@ -6,18 +6,24 @@ import { METHODS } from 'http'
 
 export default function New() {
   const { register, handleSubmit } = useForm()
-
   const onSubmit = async (data: any) => {
-    const req = await fetch(`/api/franchises`,{method :"POST"} )
+    await fetch('/api/franchises', {method: 'POST', body: JSON.stringify(data)})
+    return
   }
-  const { data } = useQuery(
-    'clients',
+  const { data : user } = useQuery(
+    'users',
     async () => {
       const res = await fetch(`/api/users`)
       return await res.json()
     }
   )
-  
+  const { data : client } = useQuery(
+    'clients',
+    async () => {
+      const res = await fetch(`/api/clients`)
+      return await res.json()
+    }
+  )
   return (
     <AuthenticatedLayout pageTitle={'Créer une franchise'}>
       <header className="bg-white shadow">
@@ -43,7 +49,9 @@ export default function New() {
               <div>
               <label>Active
                   <input
-                      name="address"
+                      id='active'
+                      {...register('active')}
+                      name="active"
                       type="checkbox"
                       className="rounded-lg border-4 m-2 border border-gray-400">
                   </input>
@@ -51,14 +59,15 @@ export default function New() {
               </div>
               <div>
               <label>Contact
-                <select
+                <select {...register('userId')}
                   name="userId"
                   className="rounded-lg m-2 border-4 border border-gray-400"
                 >
-                   {data && data.map((users: any) => (
+                   {user && user.map((users: any) => (
                          <option  key={users.id} value={users.id}>{users.name} {users.email}</option>))}
                 </select>
               </label>
+             
               <a href={`/user/new`}>
                 Ajouter un contact
                 <button
@@ -69,17 +78,17 @@ export default function New() {
                 </button>
               </a>
               </div>
-              <div>
-              <label>Client de la franchise
-                  <select
-                      name="ClientId"
-                      className="rounded-lg border-4 m-2 border border-gray-400"
-                      >
-                      <option value="">Selection d'un client</option>
-                      <option value="">Salle muscu +</option>
-                      <option value="">L'orange Bleu sport</option>
-                  </select>
+              <label>Contact
+                <select {...register('clientId')}
+                  name="clientId"
+                  className="rounded-lg m-2 border-4 border border-gray-400"
+                >
+                   {client && client.map((client: any) => (
+                         <option  key={client.id} value={client.id}>{client.name} </option>))}
+                </select>
               </label>
+              <div>
+              
               </div>
               <input
                   type="submit"

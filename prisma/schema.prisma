@@ -105,9 +105,9 @@ model Franchise {
   newsletter Boolean?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  userId       String   @map("user_id")
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  clientId String
-  client Client @relation(fields: [clientId], references: [id])
+  userId       String?   @map("user_id")
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clientId String?
+  client Client? @relation(fields: [clientId], references: [id])
   @@map(name: "franchises")
 }
