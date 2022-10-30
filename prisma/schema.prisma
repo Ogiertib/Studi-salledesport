@@ -71,7 +71,7 @@ model User {
 }
 
 model Profile {
-  id Int @id @default(autoincrement())
+  id String @id @default(cuid())
   role Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -81,7 +81,7 @@ model Profile {
 }
 
 model Client {
-  id Int @id @default(autoincrement())
+  id String @id @default(cuid())
   name String
   email String
   planning Boolean?
@@ -96,7 +96,7 @@ model Client {
 }
 
 model Franchise {
-  id Int @id @default(autoincrement())
+  id String @id @default(cuid())
   name String
   address String?
   active Boolean @default(false)
@@ -107,7 +107,7 @@ model Franchise {
   updatedAt DateTime @default(now())
   userId       String   @map("user_id")
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  clientId Int
+  clientId String
   client Client @relation(fields: [clientId], references: [id])
   @@map(name: "franchises")
 }

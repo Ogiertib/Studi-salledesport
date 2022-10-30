@@ -2,11 +2,14 @@ import { PlusIcon, ArrowRightIcon} from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
 import AuthenticatedLayout from '../../components/AuthenticatedLayout'
 import { useQuery } from 'react-query'
+import { useForm } from 'react-hook-form'
 
 export default function Index() {
   const [searchTerm, setSearchTerm] = useState("")
   const [checked, setChecked]= useState(false)
   const handleChange = () => setChecked(checked => !checked)
+
+  const { register, handleSubmit } = useForm()
 
   const { data } = useQuery(
     'franchises',
