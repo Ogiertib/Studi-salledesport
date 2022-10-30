@@ -63,6 +63,7 @@ export default function Index() {
               {data && data.map((franchise: any) => (
                 <div key={franchise.id}>
                   <p>Nom : {franchise.name}</p>
+                  <a href={`/franchises/${franchise.id}/`}>Show More</a>
                 </div>
               ))}
               <div>

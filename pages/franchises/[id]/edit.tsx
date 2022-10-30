@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Header from 'components/Header'
+import Header from '../../../components/Header'
 import { ArrowRightIcon, PlusIcon, TrashIcon} from '@heroicons/react/24/outline'
 
 export default function NewFranchise() {

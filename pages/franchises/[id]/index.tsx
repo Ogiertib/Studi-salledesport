@@ -1,9 +1,21 @@
 import Head from 'next/head'
-import Header from 'components/Header'
+import Header from '../../../components/Header'
 import { ArrowRightIcon, ArrowUpOnSquareIcon } from '@heroicons/react/24/outline'
+import { useQuery } from 'react-query'
+import { useRouter } from 'next/router'
 
 export default function Client() {
- 
+ const router = useRouter()
+ const id = router.query.id
+
+  const { data } = useQuery(
+    ['franchises', id],
+    async () => {
+      const res = await fetch(`/api/franchises/${id}`)
+      return await res.json()
+    }
+  )
+  console.log(data)
   return (
     <div>
       <Head>
@@ -15,7 +27,7 @@ export default function Client() {
       <main>
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Franchise .name</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Franchise  </h1>
             
           </div>
         </header>
