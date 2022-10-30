@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "../../../lib/prisma"
 
 export default NextAuth({
+  secret: process.env.AUTH_SECRET ?? 'studi-app-secret',
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -36,6 +37,7 @@ export default NextAuth({
   ],
   session: {
     // Set to jwt in order to CredentialsProvider works properly
-    strategy: 'jwt'
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   }
 })

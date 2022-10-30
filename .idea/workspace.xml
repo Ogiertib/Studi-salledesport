@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6897d255-ff1a-48ab-9c70-8c0edcad36db" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/styles/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/api/franchises/[id].ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/api/franchises/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Modal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/PublicLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/PublicLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/clients/new.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/clients/new.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/auth/[...nextauth].ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/auth/[...nextauth].ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/clients/[id]/update.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/clients/[id]/edit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/franchises/[id]/update.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/franchises/[id]/edit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/franchises/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/franchises/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +107,7 @@
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/Users/antoine/Projets/Studi-salledesport",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Applications/PhpStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "/Users/antoine/Projets/Studi-salledesport/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -134,7 +138,7 @@
       <updated>1666897397707</updated>
       <workItem from="1666897399030" duration="12363000" />
       <workItem from="1666970641221" duration="1013000" />
-      <workItem from="1666971668455" duration="12776000" />
+      <workItem from="1666971668455" duration="15436000" />
     </task>
     <servers />
   </component>

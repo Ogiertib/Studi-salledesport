@@ -1,11 +1,20 @@
 import { PlusIcon, ArrowRightIcon} from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
 import AuthenticatedLayout from '../../components/AuthenticatedLayout'
+import { useQuery } from 'react-query'
 
 export default function Index() {
   const [searchTerm, setSearchTerm] = useState("")
   const [checked, setChecked]= useState(false)
   const handleChange = () => setChecked(checked => !checked)
+
+  const { data } = useQuery(
+    'franchises',
+    async () => {
+      const res = await fetch('/api/franchises')
+      return await res.json()
+    }
+  )
 
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
@@ -48,7 +57,11 @@ export default function Index() {
          </div>
           <div className="px-4 py-6 sm:px-0">
             <div className="h-96 rounded-lg border-4 border border-gray-200">
-              <p>le .map ici</p>
+              {data && data.map((franchise: any) => (
+                <div key={franchise.id}>
+                  <p>Nom : {franchise.name}</p>
+                </div>
+              ))}
               <div>
                 <div> Montrer la Franchise</div>
                 <a href="pages/franchise/[id]/index.tsx">
