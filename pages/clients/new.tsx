@@ -1,9 +1,18 @@
 import Head from 'next/head'
 import Header from 'components/Header'
 import { PlusIcon} from '@heroicons/react/24/outline'
+import Modal from "react-modal";
+import React, { Component, FunctionComponent, useState } from 'react';
 
+
+
+<<<<<<< HEAD:pages/clients/new.tsx
 export default function New() {
  const onSubmit =(d :any)=> alert(JSON.stringify(d))
+=======
+export default function NewClient() {
+    const onSubmit =(d :any)=> alert(JSON.stringify(d))
+>>>>>>> a79cb348f09ed76cf04c791a0195fbaf698f0de6:pages/NewClient.tsx
   return (
     <div>
       <Head>
@@ -77,10 +86,12 @@ export default function New() {
                 <a href="pages/user/new.tsx">Ajouter un contact
                     <button
                         type="button"
+                        onClick={onSubmit}
                         className="rounded-full m-2 bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         >
                         <PlusIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
+                    
                 </a>
                 </div>
                 <input 

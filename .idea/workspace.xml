@@ -2,27 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6897d255-ff1a-48ab-9c70-8c0edcad36db" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/components/Modal.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/PublicLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/styles/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Modal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/PublicLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/PublicLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Account.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/user/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Client.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/clients/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Franchise.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/franchises/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/NewClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/clients/new.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/NewFranchise.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/franchises/new.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/NewUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/user/new.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/ShowClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/clients/[id]/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/ShowFranchise.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/franchises/[id]/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/UpdateClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/clients/[id]/update.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/UpdateFranchise.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/franchises/[id]/update.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/auth/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/AuthenticatedLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/auth/[...nextauth].ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/auth/[...nextauth].ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/clients/new.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/clients/new.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -110,22 +96,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/antoine/Projets/Studi-salledesport&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/antoine/Projets/Studi-salledesport/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/antoine/Projets/Studi-salledesport",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Applications/PhpStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -148,7 +134,7 @@
       <updated>1666897397707</updated>
       <workItem from="1666897399030" duration="12363000" />
       <workItem from="1666970641221" duration="1013000" />
-      <workItem from="1666971668455" duration="12611000" />
+      <workItem from="1666971668455" duration="12758000" />
     </task>
     <servers />
   </component>

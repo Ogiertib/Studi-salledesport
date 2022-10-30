@@ -20,7 +20,7 @@ const PublicLayout = ({
   if (session.status === 'loading') {
     return <>Loading...</>
   }
-  
+
   if (session.status === 'authenticated') {
     router.replace('/franchises')
   }
