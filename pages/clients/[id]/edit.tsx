@@ -133,7 +133,7 @@ export default function NewFranchise() {
                         {...register('userId')}
                         name="userId" 
                         className="rounded-lg m-2 border-4 border border-gray-400"
-                        > <option selected={true} value={client?.user.email}>{client?.user.email}</option>
+                        > <option selected={true} value={client?.user.id}>{client?.user.email}</option>
                           {user && user.map((user: any) => (
                           <option  key={user.id} value={user.id}>{user.email}</option>
               ))}
