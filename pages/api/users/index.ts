@@ -13,6 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     case 'POST':
       const user = await prisma.user.create({
         data: JSON.parse(req.body),
+        
       })
       break
     default:
