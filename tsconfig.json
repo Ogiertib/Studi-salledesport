@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/contact/index.js", "pages/api/contact"],
   "exclude": ["node_modules"],
   "ts-node": {
     "compilerOptions": {
