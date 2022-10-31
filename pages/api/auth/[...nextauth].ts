@@ -15,7 +15,7 @@ export default NextAuth({
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "johndoe@test.fr" },
+        email: { label: "Email", type: "text", placeholder: "" },
         password: {  label: "Mot de passe", type: "password" }
       },
       async authorize(credentials, req) {
@@ -26,18 +26,26 @@ export default NextAuth({
             email: credentials.email,
           },
         })
-
         if (!user || user.password !== credentials.password) {
           return null
         }
-
         return user
       }
     })
   ],
   session: {
-    // Set to jwt in order to CredentialsProvider works properly
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  }
+    maxAge: 30 * 24 * 60 * 60,
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      console.log(user)
+      return { ...token, ...user }
+     },
+    async session({session, user, token}){
+      return { ...session, ...user, ...token}
+    },
+    
+}
+
 })

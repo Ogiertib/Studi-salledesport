@@ -4,8 +4,11 @@ import { ArrowRightIcon, PlusIcon } from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import AuthenticatedLayout from '../../components/AuthenticatedLayout'
+import { useSession } from 'next-auth/react'
 
 export default function Index() {
+  const session = useSession()
+  const userData : any = session.data
   const { data } = useQuery(
     'clients',
     async () => {
@@ -45,7 +48,7 @@ export default function Index() {
                  placeholder='Rechercher'
                  onChange={(e) => {setSearchTerm(e.target.value)}}
              />
-
+                {userData?.role == 1 &&
                 <a href="/clients/new" className='col-end-30'> Ajouter un client
                     <button
                         type="button"
@@ -54,6 +57,7 @@ export default function Index() {
                         <PlusIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
                 </a>
+                }
                 </div>
             </div>}
           <div className="px-4 py-6 sm:px-0">

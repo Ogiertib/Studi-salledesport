@@ -13,12 +13,13 @@ export default function NewClient() {
   const id = router.query.id
   const { register, handleSubmit } = useForm()
   const onSubmit = async (data: any) => {
-    await fetch(`/api/clients/${id}`, {method: 'PUT', body: JSON.stringify(data)})
+    const {userId , ...formData} = data
+    await fetch(`/api/clients/${id}`, {method: 'PUT', body: JSON.stringify(formData)})
     router.push(`/clients/${id}`)
   }
   const onDelete = async (data: any) => {
     await fetch(`/api/clients/${id}`, {method: 'DELETE', body: JSON.stringify(data)})
-    router.push(`/clients/${id}`)
+    router.push(`/clients`)
   }
   let [isOpenUpdate, setIsOpenUpdate] = useState(false)
   function openUpdateModal() {
@@ -71,7 +72,6 @@ export default function NewClient() {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label>Name
-
                         <input 
                         {...register('name')}
                         id='name'
@@ -129,7 +129,6 @@ export default function NewClient() {
                 <label>Contact
                     <select 
                         {...register('userId')}
-                        name="userId" 
                         className="rounded-lg m-2 border-4 border border-gray-400"
                         > <option selected={true} value={client?.user.id}>{client?.user.email}</option>
                           {user && user.map((user: any) => (

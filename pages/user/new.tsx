@@ -50,27 +50,15 @@ const onSubmitHandler = async (data : any) => {
       <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="h-140 rounded-lg border-4 border border-gray-400">
-            <form onSubmit={handleSubmit(onSubmitHandler)}>
-              {isSended && (
-               <p>
-              Votre message a bien été envoyé avec
-              succes.
-              </p>
-              )}
-                <div>
+            <form>
+              <div>
                   <label>Name
-                      <input  
-                        {...register('name', { required: true }) }
-                        type='text' 
-                        className="rounded-lg m-2 border-4 border border-gray-400"/>
+                      <input  type='text' className="rounded-lg m-2 border-4 border border-gray-400"/>
                   </label>
               </div>
               <div>
                   <label>Email
-                      <input 
-                        {...register('email', { required: true }) }
-                        type='email' 
-                        className="rounded-lg m-2 border-4 border border-gray-400"/>
+                      <input type='email' className="rounded-lg m-2 border-4 border border-gray-400"/>
                   </label>
               </div>
               <div>

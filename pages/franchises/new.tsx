@@ -11,7 +11,7 @@ export default function New() {
   const[chooseClient, setChooseClient]= useState('')
   const onSubmit = async (data: any) => {
     await fetch('/api/franchises', {method: 'POST', body: JSON.stringify(data)})
-   router.push('/franchises')
+      router.push('/franchises')
 }
   const { data : user } = useQuery(
     'users',

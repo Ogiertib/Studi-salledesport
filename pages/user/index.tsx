@@ -1,21 +1,14 @@
 import AuthenticatedLayout from '../../components/AuthenticatedLayout'
-import { useSession } from 'next-auth/react'
+import { getSession, GetSessionParams, useSession } from 'next-auth/react'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 
-export default function Index() {
+export default  function Index() {
   const router = useRouter()
   const id = router.query.id
-  const { data } = useSession()
-
-   const { data : user } = useQuery(
-     ['users', id],
-     async () => {
-       const res = await fetch(`/api/users/${id}`)
-       return await res.json()
-     }
-   )
-  console.log(user)
+  const session = useSession()
+  const data : any = session.data
+  console.log(session)
   return (
     <AuthenticatedLayout pageTitle={'Mon compte'}>
 
@@ -27,8 +20,9 @@ export default function Index() {
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
             <div className="h-96 rounded-lg border-4 border border-gray-200">
-              <p>Nom : {data?.user?.name}</p>
-              <p>Email : {data?.user?.email}</p>
+             <p>Nom : {data?.name} </p>
+              <p>Email : {data?.email}</p>
+              <p>role : {data?.role}</p>
             </div>
           </div>
         </div>

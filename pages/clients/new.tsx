@@ -14,9 +14,9 @@ export default function New() {
   const { register, handleSubmit } = useForm()
   const router = useRouter()
   const onSubmit = async (data: any) => {
-        await fetch('/api/clients', {method: 'POST', body: JSON.stringify(data)})
-         router.push('/clients/')
-      }
+      await fetch('/api/clients', {method: 'POST', body: JSON.stringify(data)})
+     router.push('/clients')
+    }
   const { data } = useQuery(
     'clients',
     async () => {

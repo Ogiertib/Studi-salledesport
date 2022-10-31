@@ -56,9 +56,6 @@ export default function NewFranchise() {
       return await res.json()
     }
   )
-console.log(data)
-
-
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
     <div>

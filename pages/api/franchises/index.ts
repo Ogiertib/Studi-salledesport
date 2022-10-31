@@ -10,8 +10,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(200).json(franchises)
       break
     case 'POST':
+      const body = JSON.parse(req.body)
+      const client = await prisma.client.findUnique({ where: {id: body.clientId}})
       const franchise = await prisma.franchise.create({
-        data: JSON.parse(req.body),
+        data: { ...body,
+           drink : client?.drink,
+           planning : client?.planning,
+           newsletter : client?.newsletter
+        },
       })
       break
     default:

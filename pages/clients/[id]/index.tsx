@@ -4,8 +4,11 @@ import { ArrowRightIcon, ArrowUpOnSquareIcon } from '@heroicons/react/24/outline
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import AuthenticatedLayout from '../../../components/AuthenticatedLayout'
+import { useSession } from 'next-auth/react'
 
 export default function Client() {
+  const session = useSession()
+  const userData : any = session.data
   const router = useRouter()
  const id = router.query.id
 
@@ -31,7 +34,7 @@ console.log(data)
         </header>
 
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-          {<div>
+          {userData?.role == 1 && <div>
                 <a href={`/clients/${data?.id}/edit`} >
                     <button
                         type="button"
@@ -40,7 +43,7 @@ console.log(data)
                         Modifier
                     </button>
                 </a>
-            </div>}
+            </div> }
           <div className="px-4 py-6 sm:px-0">
             
             <div className="h-auto rounded-lg border-4 border border-gray-400">

@@ -6,11 +6,13 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import AuthenticatedLayout from '../../../components/AuthenticatedLayout'
+import { useSession } from 'next-auth/react'
 
 export default function Client() {
  const router = useRouter()
  const id = router.query.id
-
+ const session = useSession()
+  const userData : any = session.data
   const { data } = useQuery(
     ['franchises', id],
     async () => {
@@ -19,7 +21,6 @@ export default function Client() {
     }
   )
 
-  console.log(data)
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
     <div>
@@ -33,7 +34,7 @@ export default function Client() {
         </header>
 
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-          {<div>
+          {userData?.role == 1 && <div>
                 <a href={`/franchises/${data?.id}/edit`}>
                     <button
                         type="button"

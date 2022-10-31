@@ -3,11 +3,14 @@ import React, { useState } from 'react'
 import AuthenticatedLayout from '../../components/AuthenticatedLayout'
 import { useQuery } from 'react-query'
 import { useForm } from 'react-hook-form'
+import { useSession } from 'next-auth/react'
 
 export default function Index() {
   const [searchTerm, setSearchTerm] = useState("")
   const [checked, setChecked]= useState(false)
   const handleChange = () => setChecked(checked => !checked)
+  const session = useSession()
+  const userData : any = session.data
 
   const { register, handleSubmit } = useForm()
 
@@ -18,7 +21,7 @@ export default function Index() {
       return await res.json()
     }
   )
-console.log(data)
+
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
       <header className="bg-white shadow">
@@ -47,15 +50,16 @@ console.log(data)
               />
               Franchise Active
             </label>
-            <a href="franchises/new" className='col-end-5'> Ajouter une franchise
-                <button
-                  type="button"
-                  className=" rounded-full m-2 bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <PlusIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-            </a>
-                
+            {userData?.role == 1 && 
+              <a href="franchises/new" className='col-end-5'> Ajouter une franchise
+                  <button
+                    type="button"
+                    className=" rounded-full m-2 bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    >
+                      <PlusIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+              </a>
+                }
             </div>
          </div>
          <div className="h-auto rounded-lg border-4 border border-gray-300">
