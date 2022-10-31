@@ -22,8 +22,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       })
       res.status(200).json(updatedFranchise)
       break
+      case 'DELETE':
+        const deleteFranchise = await prisma.franchise.delete({
+          where: {id: id as string}
+        })
+        res.status(200).json(deleteFranchise)
+        break
     default:
-      res.setHeader('Allow', ['GET', 'POST'])
+      res.setHeader('Allow', ['GET', 'POST', 'DELETE'])
       res.status(405).end(`Method ${method} Not Allowed`)
   }
 }

@@ -58,7 +58,7 @@ console.log(data)
                 
             </div>
          </div>
-         <div className="h-96 rounded-lg border-4 border border-gray-200">
+         <div className="h-auto rounded-lg border-4 border border-gray-300">
             {data?.filter((item :any)=>{
                 return item.name.toUpperCase().includes(searchTerm.toUpperCase()) 
                 && checked ? item.active : item.name.toUpperCase().includes(searchTerm.toUpperCase()) 

@@ -2,16 +2,17 @@ import { PlusIcon } from '@heroicons/react/24/outline'
 import AuthenticatedLayout from '../../components/AuthenticatedLayout'
 import { useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
-import { METHODS } from 'http'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 export default function New() {
   const { register, handleSubmit } = useForm()
   const router = useRouter()
+  const[chooseClient, setChooseClient]= useState('')
   const onSubmit = async (data: any) => {
     await fetch('/api/franchises', {method: 'POST', body: JSON.stringify(data)})
-    router.push('/franchises')
-  }
+   router.push('/franchises')
+}
   const { data : user } = useQuery(
     'users',
     async () => {
@@ -80,23 +81,24 @@ export default function New() {
                 </button>
               </a>
               </div>
-              <label>Contact
+              <label>La franchises appartient au client :
                 <select {...register('clientId')}
                   name="clientId"
                   className="rounded-lg m-2 border-4 border border-gray-400"
-                >
-                   {client && client.map((client: any) => (
-                         <option  key={client.id} value={client.id}>{client.name} </option>))}
+                >{client && client.map((client: any) => (
+                         <option  value={client.id} key={client.id}> {client.name} </option>))}
                 </select>
               </label>
               <div>
-              
               </div>
-              <input
-                  type="submit"
-                  value="Créer"
-                  className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-              </input>
+              <button
+                  onClick={handleSubmit(onSubmit)}
+                  className="rounded-full m-2 bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >créer
+              </button>
+              <a href="/franchises" className='rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
+                 Annuler
+              </a>
             </form>
           </div>
         </div>

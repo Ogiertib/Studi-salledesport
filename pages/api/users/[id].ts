@@ -7,7 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!id) {
     return res.status(406).end(`Bad request`)
   }
-
   switch (method) {
     case 'GET':
       const user = await prisma.user.findUnique({where: {id: id as string}})

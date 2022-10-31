@@ -20,6 +20,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       })
       res.status(200).json(updatedClient)
       break
+      case 'DELETE':
+      const deleteClient = await prisma.client.delete({
+        where: {id: id as string}
+      })
+      res.status(200).json(deleteClient)
+      break
     default:
       res.setHeader('Allow', ['GET', 'POST'])
       res.status(405).end(`Method ${method} Not Allowed`)
