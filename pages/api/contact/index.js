@@ -5,11 +5,9 @@ export default function handler(req , res) {
 		res.status(405).json({ message: "INVALID_METHOD" });
 		return;
 	}
+	const { name, email} = req.body;
 
-	// Variables
-	const { nom, email, text } = req.body;
-
-	if ( !nom || !email || !text) {
+	if ( !name || !email) {
 		res.status(400).json({ message: "INVALID_PARAMETER" });
 		return;
 	}
@@ -24,23 +22,15 @@ export default function handler(req , res) {
 		return;
 	}
 
-	const message = text
-		.replace(/\n/g, "<br>")
-		.replace(/\r/g, "<br>")
-		.replace(/\t/g, "<br>")
-		.replace(/<(?!br\s*\/?)[^>]+>/g, ""); 
-
-	
 	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 	const sendGridMail = {
-		to: email,
+		to: "ogier9@gmail.com",
 		from: "ogier9@gmail.com",
 		templateId: "d-855e7d65d70540849616b79c187fb571",
 		dynamic_template_data: {
-			nom: nom,
+			name: name,
 			email: email,
-			text: message,
 		},
 	};
 	// SendGrid

@@ -1,10 +1,12 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AuthenticatedLayout from '../../components/AuthenticatedLayout'
 
 export default function New() {
   const [isLoading, setIsLoading] = useState(false);
-  const [isSended, setIsSended] = useState(true);
+  const [isSended, setIsSended] = useState(false);
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -21,6 +23,8 @@ const onSubmitHandler = async (data : any) => {
           },
           body: JSON.stringify(data),
       });
+      await fetch('/api/users', {method: 'POST', body: JSON.stringify(data)})
+      router.push('/')
       const result = await response.json();
       setIsLoading(false);
       if (!response.ok) {
@@ -31,8 +35,9 @@ const onSubmitHandler = async (data : any) => {
           setIsSended(true);
       }
   }
+  console.log(data)
 };
-console.log()
+
   return (
     <AuthenticatedLayout pageTitle={'Créer un utilisateur'}>
 
@@ -69,28 +74,24 @@ console.log()
                   </label>
               </div>
               <div>
-                  <label>Role
-                      <select 
-                         {...register('role', { required: true }) }
-                        className="rounded-lg m-2 border-4 border border-gray-400">
-                        <option value={1}>admin</option>
-                        <option value={2}>client</option>
-                        <option value={3}>franchise</option>
-                      </select>
-                  </label>
+                  
+                      <input 
+                        {...register('password', { required: true }) }
+                        type='password' 
+                        className="rounded-lg m-2 border-4 border border-gray-400"
+                        value="monpremiermotdepasse"/>
+                       
               </div>
-              <div>
-                  <label>Texte à envoyer 
-                      <textarea 
-                         {...register('text', { required: true }) }
-                        placeholder=" Nous sommes heureux de vous compter parmi nous !
-                          Pour valider votre compte veuillez vous connecter à l'adresse suivante : 
-                          http://127.0.0.1:3333/Mdp
-                          Votre email sera votre identifiant" 
-                        className="h-60 m-2 w-100 rounded-lg m-2 border-4 border border-gray-400"> 
-                      </textarea>
-                  </label>
-              </div>
+              <label> Role
+              <select 
+                
+                className="rounded-lg m-2 border-4 border border-gray-400">
+                <option value="1">admin</option>
+                <option value="2">client</option>
+                <option value="3">franchise</option>
+              </select>
+              </label>
+             
               <input
                   type="submit"
                   value="Créer"

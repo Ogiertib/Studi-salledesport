@@ -94,6 +94,15 @@ export default function New() {
                          <option  key={user.id} value={user.id} >{user.email}</option>))}
                     </select>
                 </label>
+                <a href={`/user/new`}>
+                Ajouter un contact
+                <button
+                  type="button"
+                  className="rounded-full bg-green-700 m-2 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                >
+                  <PlusIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </a>
                 </div>
                 <button
                   onClick={handleSubmit(onSubmit)}
