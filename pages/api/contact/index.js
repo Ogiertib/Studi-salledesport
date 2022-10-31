@@ -27,7 +27,7 @@ export default function handler(req , res) {
 	const sendGridMail = {
 		to: "ogier9@gmail.com",
 		from: "ogier9@gmail.com",
-		templateId: "d-855e7d65d70540849616b79c187fb571",
+		templateId: "d-d8681fcfe7af4983b41e5792e12b84fa",
 		dynamic_template_data: {
 			name: name,
 			email: email,
