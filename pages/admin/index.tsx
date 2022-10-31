@@ -15,7 +15,7 @@ export default function New() {
   const router = useRouter()
   const onSubmit = async (data: any) => {
         await fetch('/api/users', {method: 'POST', body: JSON.stringify(data)})
-         router.push('/login')
+         router.push('/')
       }
   
   return (
