@@ -13,7 +13,7 @@ export default function New() {
     reset, 
     formState: { errors },
 } = useForm();
-const onSubmitHandler = async (data : any) => {
+const onSubmit = async (data : any) => {
   if (!isLoading) {
       setIsLoading(true);
       const response = await fetch("/api/contact", {
@@ -50,29 +50,32 @@ const onSubmitHandler = async (data : any) => {
       <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="h-140 rounded-lg border-4 border border-gray-400">
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div>
                   <label>Name
-                      <input  type='text' className="rounded-lg m-2 border-4 border border-gray-400"/>
+                      <input  
+                      {...register('name', { required: true }) }
+                        type='text' 
+                        className="rounded-lg m-2 border-4 border border-gray-400"/>
                   </label>
               </div>
               <div>
                   <label>Email
-                      <input type='email' className="rounded-lg m-2 border-4 border border-gray-400"/>
+                      <input 
+                        {...register('email', { required: true }) }
+                        type='email' 
+                        className="rounded-lg m-2 border-4 border border-gray-400"/>
                   </label>
               </div>
               <div>
-                  
                       <input 
                         {...register('password', { required: true }) }
                         type='password' 
                         className="rounded-lg m-2 border-4 border border-gray-400"
-                        value="monpremiermotdepasse"/>
-                       
+                        value="monpremiermotdepasse"/>  
               </div>
               <label> Role
-              <select 
-                
+              <select {...register('role', { required: true }) }
                 className="rounded-lg m-2 border-4 border border-gray-400">
                 <option value="1">admin</option>
                 <option value="2">client</option>
@@ -81,6 +84,7 @@ const onSubmitHandler = async (data : any) => {
               </label>
              
               <input
+                  onClick={handleSubmit(onSubmit)}
                   type="submit"
                   value="Créer"
                   className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
