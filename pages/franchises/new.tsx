@@ -3,12 +3,14 @@ import AuthenticatedLayout from '../../components/AuthenticatedLayout'
 import { useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
 import { METHODS } from 'http'
+import { useRouter } from 'next/router'
 
 export default function New() {
   const { register, handleSubmit } = useForm()
+  const router = useRouter()
   const onSubmit = async (data: any) => {
     await fetch('/api/franchises', {method: 'POST', body: JSON.stringify(data)})
-    return
+    router.push('/franchises')
   }
   const { data : user } = useQuery(
     'users',
