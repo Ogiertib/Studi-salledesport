@@ -10,33 +10,26 @@ export default function New() {
   const {
     register,
     handleSubmit,
-    reset, 
-    formState: { errors },
-} = useForm();
-const onSubmit = async (data : any) => {
-  if (!isLoading) {
-      setIsLoading(true);
-      const response = await fetch("/api/contact", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+    formState: {
+      isSubmitting
+    }
+  } = useForm();
+
+  const onSubmit = async (data : any) => {
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
       await fetch('/api/users', {method: 'POST', body: JSON.stringify(data)})
       router.push('/')
-      const result = await response.json();
-      setIsLoading(false);
-      if (!response.ok) {
-          console.log("error");
-      } else {
-          console.log("ok");
-          reset();
-          setIsSended(true);
-      }
-  }
-  console.log(data)
-};
+    } catch(e) {
+      console.log(e)
+    }
+  };
 
   return (
     <AuthenticatedLayout pageTitle={'Créer un utilisateur'}>
@@ -82,12 +75,12 @@ const onSubmit = async (data : any) => {
                 <option value="3">franchise</option>
               </select>
               </label>
-             
               <input
-                  onClick={handleSubmit(onSubmit)}
-                  type="submit"
-                  value="Créer"
-                  className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                onClick={handleSubmit(onSubmit)}
+                disabled={isSubmitting}
+                type="submit"
+                value="Créer"
+                className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               </input>
             </form>
           </div>

@@ -7,6 +7,7 @@ import { useState, Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useForm } from 'react-hook-form'
 import AuthenticatedLayout from '../../../components/AuthenticatedLayout'
+import Loader from '../../../components/Loader'
 
 export default function NewFranchise() {
   const router = useRouter()
@@ -35,7 +36,7 @@ export default function NewFranchise() {
     setIsOpen(false)
   }
 
-   const { data } = useQuery(
+   const { data: franchise} = useQuery(
      ['franchises', id],
      async () => {
        const res = await fetch(`/api/franchises/${id}`)
@@ -56,10 +57,15 @@ export default function NewFranchise() {
       return await res.json()
     }
   )
-  return (
+  console.log(franchise)
+
+  if(!franchise) return( 
+    <Loader />
+   )
+
+  return ( 
     <AuthenticatedLayout pageTitle={'Franchises'}>
     <div>
-    
       <main>
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
@@ -68,11 +74,9 @@ export default function NewFranchise() {
         </header>
 
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-          {<div>
+          <div>
                 <div>Modification d'une franchise</div>
-                
             </div>
-          }
           <div className="px-4 py-6 sm:px-0">
             
             <div className="h-96 rounded-lg m-2 border-4 border border-gray-200">
@@ -82,8 +86,7 @@ export default function NewFranchise() {
                         <input 
                           {...register('name')}
                           className="rounded-lg m-2 border-4 border border-gray-400"
-                          defaultValue={data?.name}
-                          id={data?.name}
+                          defaultValue={franchise.name}
                         >
                         </input>
                     </label>
@@ -93,7 +96,7 @@ export default function NewFranchise() {
                         <input 
                           {...register('address')}
                           className="rounded-lg m-2 border-4 border border-gray-400"
-                          defaultValue={data?.address}
+                          defaultValue={franchise.address}
                         >
                         </input>
                     </label>
@@ -102,10 +105,10 @@ export default function NewFranchise() {
                 <label>Active
                     <input 
                         {...register('active')}
-                        id='active'
+                        name='active'
                         type="checkbox" 
                         className="rounded-lg border-4 m-2 border border-gray-400"
-                        defaultChecked = {data?.active}
+                        defaultChecked = {franchise.active}
                         >
                     </input>
                 </label>
@@ -116,7 +119,7 @@ export default function NewFranchise() {
                           {...register('drink')}
                           name= 'drink'
                           type="checkbox" 
-                          defaultChecked = {data?.drink}
+                          defaultChecked = {franchise.drink}
                           className="rounded-lg border-4 m-2 border border-gray-400">
                       </input>
                   </label>
@@ -124,7 +127,8 @@ export default function NewFranchise() {
                       <input 
                           {...register('newsletter')}
                           type="checkbox" 
-                          defaultChecked = {data?.newsletter}
+                          name='newsletter'
+                          defaultChecked = {franchise.newsletter}
                           className="rounded-lg border-4 m-2 border border-gray-400">
                       </input>
                   </label>
@@ -132,7 +136,7 @@ export default function NewFranchise() {
                       <input 
                           {...register('planning')}
                           type="checkbox" 
-                          defaultChecked = {data?.planning}
+                          defaultChecked = {franchise.planning}
                           className="rounded-lg border-4 m-2 border border-gray-400">
                       </input>
                   </label>
@@ -142,7 +146,7 @@ export default function NewFranchise() {
                     <select 
                         {...register('userId')}
                         className="rounded-lg m-2 border-4 border border-gray-400"
-                        > <option selected={true} value={data?.user.id}>{data?.user.email}</option>
+                        > <option selected={true} value={franchise.user.id}>{franchise.user.email}</option>
                           {user && user.map((users: any) => (
                           <option key={users.id} value={users.id}>{users.email}</option>
               ))}
@@ -163,7 +167,7 @@ export default function NewFranchise() {
                   {...register('clientId')}
                   className="rounded-lg m-2 border-4 border border-gray-400"   
                 > 
-                  <option selected={true} value={data?.client.id}> {data?.client.name} </option>
+                  <option selected={true} value={franchise.client.id}> {franchise.client.name} </option>
                   {client && client.map((client: any) => (
                          <option value={client.id} key={client.id}> {client.name} </option>))}
                 </select>

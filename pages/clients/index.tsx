@@ -65,17 +65,29 @@ export default function Index() {
               {data?.filter((item :any)=>{
                 return item?.name.toUpperCase().includes(searchTerm.toUpperCase())
               }).map((item: any) => (
-               <div className=" m-2 rounded-lg border-4 border border-gray-400 hover:text-gray-400">
-                 <a href={`/clients/${item?.id}`} >
-                  <div key={item?.id} >
-                    <p>Nom : {item?.name}</p>
-                    <p>Adresse : {item?.address}</p>
-                    <p>Contact : {item?.user?.email}</p>
-                    <p>Le client peut : {item?.drink ? 'Vendre des boissons' : ''} {item?.planning ? 'Gérer les plannings' : ''} {item?.newsletter ? 'Gérer les newsletter': ''}
-                  </p>
-                  </div>
-                </a>
+                <div>
+                  <div className=" m-2 rounded-lg border-4 border border-gray-400 hover:text-gray-400">
+                    <a href={`/clients/${item?.id}`} >
+                      <div key={item?.id} >
+                        <p>Nom : {item?.name}</p>
+                        <p>Adresse : {item?.address}</p>
+                        <p>Contact : {item?.user?.email}</p>
+                        <p>Le client peut : {item?.drink ? 'Vendre des boissons' : ''} {item?.planning ? 'Gérer les plannings' : ''} {item?.newsletter ? 'Gérer les newsletter': ''}
+                      </p>
+                      {userData?.role == 1 && <div>
+                    <a href={`/clients/${item.id}/edit`} >
+                        <button
+                            type="button"
+                            className="rounded-full bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                            >
+                            Modifier
+                        </button>
+                    </a>
+                </div>}
+                      </div>
+                    </a>
                 </div>
+              </div>
               ))}
 
             </div>

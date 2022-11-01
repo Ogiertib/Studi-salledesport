@@ -7,12 +7,22 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useState, Fragment } from 'react'
 import { useForm } from 'react-hook-form'
 import AuthenticatedLayout from '../../../components/AuthenticatedLayout'
+import { useSession } from 'next-auth/react'
+import Loader from '../../../components/Loader'
 
 export default function NewClient() {
+  const session = useSession()
+  const userData : any = session.data
   const router = useRouter()
   const id = router.query.id
-  
- 
+
+  const { data : client} = useQuery(
+    ['clients', id],
+    async () => {
+      const res = await fetch(`/api/clients/${id}`)
+      return await res.json()
+    }
+  )
   const onDelete = async (data: any) => {
     await fetch(`/api/clients/${id}`, {method: 'DELETE', body: JSON.stringify(data)})
     router.push(`/clients`)
@@ -31,13 +41,7 @@ export default function NewClient() {
   function closeModal() {
     setIsOpen(false)
   }
-  const { data : client} = useQuery(
-   ['clients', id],
-   async () => {
-     const res = await fetch(`/api/clients/${id}`)
-     return await res.json()
-   }
- )
+ 
  const { data : user} = useQuery(
   ['users', id],
   async () => {
@@ -47,13 +51,16 @@ export default function NewClient() {
 )
 const { register, handleSubmit} = useForm({
   mode: "onBlur",
-  defaultValues: client})
+})
+
 const onSubmit = async (data: any) => {
- 
   await fetch(`/api/clients/${id}`, {method: 'PUT', body: JSON.stringify(data)})
   router.push(`/clients/${id}`)
 }
-console.log()
+console.log(client)
+if(!client) return( 
+  <Loader />
+ )
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
     <div>
@@ -75,7 +82,7 @@ console.log()
             <div className="h-96 rounded-lg m-2 border-4 border border-gray-200">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                <input {...register("name")} 
+                <input 
                 name="name"
                 placeholder="name"
                 className="rounded-lg m-2 border-4 border border-gray-400"

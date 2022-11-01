@@ -10,7 +10,7 @@ export default function Client() {
   const session = useSession()
   const userData : any = session.data
   const router = useRouter()
- const id = router.query.id
+  const id = router.query.id
 
  const { data } = useQuery(
   ['clients', id],
@@ -34,16 +34,16 @@ console.log(data)
         </header>
 
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-          {userData?.role == 1 && <div>
-                <a href={`/clients/${data?.id}/edit`} >
-                    <button
-                        type="button"
-                        className="rounded-full bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        >
-                        Modifier
-                    </button>
-                </a>
-            </div> }
+        {userData?.role == 1 && <div>
+                    <a href={`/clients/${data?.id}/edit`} >
+                        <button
+                            type="button"
+                            className="rounded-full bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                            >
+                            Modifier
+                        </button>
+                    </a>
+                </div>}
           <div className="px-4 py-6 sm:px-0">
             
             <div className="h-auto rounded-lg border-4 border border-gray-400">
