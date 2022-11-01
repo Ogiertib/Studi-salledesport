@@ -1,4 +1,4 @@
-Bonjour pour vous authetifier en tant qu'admin vous pouvez utiliser l'email admin@sport.com et le mot de passe sport1234
+Bonjour pour vous authentifier en tant qu'admin vous pouvez utiliser l'email admin@sport.com et le mot de passe sport1234
 pour vous connecter comme un utilisateur vous pouvez utiliser l'email client@sport.com et le mot de passe sport1234
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
