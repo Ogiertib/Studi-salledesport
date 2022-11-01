@@ -42,8 +42,7 @@ export default function NewMdp() {
   };
  
   return (
-    <AuthenticatedLayout pageTitle={'Créer un utilisateur'}>
-
+<>
       <header className="bg-white shadow">
         <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">Choisiser un mot de passe</h1>
@@ -97,8 +96,7 @@ export default function NewMdp() {
           </div>
         </div>
       </div>
-
-    </AuthenticatedLayout>
+      </>
   )
 }
 
