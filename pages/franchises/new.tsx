@@ -94,9 +94,7 @@ export default function New() {
                    {user && user.map((users: any) => (
                          <option  key={users.id} value={users.id}>{users.name} {users.email}</option>))}
                 </select>
-                <p className='text-red-600'>{errors?.userId?.message}</p>
               </label>
-             
               <a href={`/user/new`}>
                 Ajouter un contact
                 <button
@@ -106,12 +104,14 @@ export default function New() {
                   <PlusIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
               </a>
+              <p className='text-red-600'>{errors?.userId?.message}</p>
               </div>
               <label>La franchises appartient au client :
                 <select {...register('clientId')}
                   name="clientId"
                   className="rounded-lg m-2 border-4 border border-gray-400"
-                >{client && client.map((client: any) => (
+                >
+                  {client && client.map((client: any) => (
                          <option  value={client.id} key={client.id}> {client.name} </option>))}
                 </select>
               </label>
