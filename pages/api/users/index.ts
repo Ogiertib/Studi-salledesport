@@ -15,6 +15,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         data: JSON.parse(req.body),
       })
       break
+      case 'PUT':
+        const body = JSON.parse(req.body)
+        const getUser = await prisma.user.findUnique({ where: {email: body.email as string}})
+        const updatedUser = await prisma.user.update({
+          where: {id : getUser?.id as string},
+          data:{
+            password: body.password,
+            role: getUser?.role,
+            name: getUser?.name,
+            email: getUser?.email
+          }
+        })
+        res.status(200).json(updatedUser)
+        break
     default:
       res.setHeader('Allow', ['GET', 'POST'])
       res.status(405).end(`Method ${method} Not Allowed`)
