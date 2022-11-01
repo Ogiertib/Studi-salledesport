@@ -17,7 +17,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       break
       case 'PUT':
         const body = JSON.parse(req.body)
-        const getUser = await prisma.user.findUnique({ where: {email: body.email as string}})
+        const getUser = await prisma.user.findFirst({ where: { AND: 
+            [{email: body.email as string}, 
+           { password: body.token as string}
+          ]}
+          }, 
+        )
         const updatedUser = await prisma.user.update({
           where: {id : getUser?.id as string},
           data:{

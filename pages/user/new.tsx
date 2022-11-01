@@ -2,18 +2,40 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AuthenticatedLayout from '../../components/AuthenticatedLayout'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export default function New() {
+  interface IFormInputs {
+    email: string
+    password: string
+    role: string
+    name:string
+  }
+
+const schema = yup.object({
+    name: yup.string().required('champs est requis').min(4, 'le nom doit contenir 6 caractères minimum'),
+    email: yup.string().email().required('champs est requis'),
+    password: yup.string().required("Vous devez choisir un mot de passe sécurisé"),
+    role: yup.string().required('champs est requis')
+  }).required();
+
   const [isLoading, setIsLoading] = useState(false);
   const [isSended, setIsSended] = useState(false);
   const router = useRouter()
   const {
     register,
     handleSubmit,
+    setValue,
     formState: {
-      isSubmitting
+      isSubmitting,
+      errors
     }
-  } = useForm();
+  } = useForm<IFormInputs>({
+    resolver: yupResolver(schema)
+  });
+
+setValue('password','sport1234')
 
   const onSubmit = async (data : any) => {
     try {
@@ -51,6 +73,7 @@ export default function New() {
                         type='text' 
                         className="rounded-lg m-2 border-4 border border-gray-400"/>
                   </label>
+                  <p className='text-red-600'>{errors?.name?.message}</p>
               </div>
               <div>
                   <label>Email
@@ -59,14 +82,9 @@ export default function New() {
                         type='email' 
                         className="rounded-lg m-2 border-4 border border-gray-400"/>
                   </label>
+                  <p className='text-red-600'>{errors?.email?.message}</p>
               </div>
-              <div>
-                      <input 
-                        {...register('password', { required: true }) }
-                        type='password' 
-                        className="rounded-lg m-2 border-4 border border-gray-400"
-                        value="monpremiermotdepasse"/>  
-              </div>
+            
               <label> Role
               <select  {...register('role', { required: true }) }
                 className="rounded-lg m-2 border-4 border border-gray-400">
@@ -82,6 +100,7 @@ export default function New() {
                 value="Créer"
                 className="rounded-full bg-gray-800 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               </input>
+              <p className='text-red-600'>{errors?.role?.message}</p>
             </form>
           </div>
         </div>

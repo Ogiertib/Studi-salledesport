@@ -5,9 +5,9 @@ export default async function handler(req , res) {
 		res.status(405).json({ message: "INVALID_METHOD" });
 		return;
 	}
-	const { name, email} = req.body;
+	const { name, email, password} = req.body;
 
-	if ( !name || !email) {
+	if ( !name || !email || !password) {
 		res.status(400).json({ message: "INVALID_PARAMETER" });
 		return;
 	}
@@ -21,7 +21,7 @@ export default async function handler(req , res) {
 		});
 	}
 
-	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+	sgMail.setApiKey('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');
 
 	const sendGridMail = {
 		to: email,
@@ -31,6 +31,7 @@ export default async function handler(req , res) {
 		dynamic_template_data: {
 			name: name,
 			email: email,
+			password: password,
 		},
 	};
 	try { 

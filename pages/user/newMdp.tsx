@@ -12,11 +12,13 @@ export default function NewMdp() {
         email: string
         password: string
         passwordOk: string
+        token:string
       }
 
     const schema = yup.object({
         email: yup.string().email().required('champs est requis'),
-        password: yup.string().required("Vous devez choisir un mot de passe sécurisé").min(6),
+        token: yup.string().required('champs est requis').matches(/(sport1234)/),
+        password: yup.string().required("Vous devez choisir un mot de passe sécurisé").min(6 , 'le mot de passe doit contenir 6 caractères minimum'),
         passwordOk: yup.string().required().oneOf([yup.ref('password'), null ],'les mots de passe doivent correspondrent') 
       }).required();
 
@@ -35,10 +37,10 @@ export default function NewMdp() {
   const onSubmit = async (data : any) => {
     try {
       await fetch('/api/users', {method: 'PUT', body: JSON.stringify(data)})
-      router.push('/')
     } catch(e) {
-      console.log(e)
+      return null
     }
+    router.push('/')
   };
  
   return (
@@ -62,6 +64,15 @@ export default function NewMdp() {
                         className="rounded-lg m-2 border-4 border border-gray-400"/>
                   </label>
                   <p className='text-red-600'>{errors?.email?.message}</p>
+              </div>
+              <div className='m-2'>
+                  <label>Token 
+                      <input 
+                        {...register('token', { required: true }) }
+                        type='text' 
+                        className="rounded-lg m-2 border-4 border border-gray-400"/>
+                  </label>
+                  <p className='text-red-600'>{errors?.token?.message}</p>
               </div>
               <div className='m-2'>
                 <label>Mot de passe
