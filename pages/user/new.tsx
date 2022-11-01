@@ -69,13 +69,13 @@ const onSubmit = async (data : any) => {
               </div>
               <div>
                       <input 
-                        
+                        {...register('password', { required: true }) }
                         type='password' 
                         className="rounded-lg m-2 border-4 border border-gray-400"
                         value="monpremiermotdepasse"/>  
               </div>
               <label> Role
-              <select 
+              <select  {...register('role', { required: true }) }
                 className="rounded-lg m-2 border-4 border border-gray-400">
                 <option value="1">admin</option>
                 <option value="2">client</option>

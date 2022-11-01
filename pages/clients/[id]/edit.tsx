@@ -11,12 +11,8 @@ import AuthenticatedLayout from '../../../components/AuthenticatedLayout'
 export default function NewClient() {
   const router = useRouter()
   const id = router.query.id
-  const { register, handleSubmit } = useForm()
-  const onSubmit = async (data: any) => {
-    const {userId , ...formData} = data
-    await fetch(`/api/clients/${id}`, {method: 'PUT', body: JSON.stringify(formData)})
-    router.push(`/clients/${id}`)
-  }
+  
+ 
   const onDelete = async (data: any) => {
     await fetch(`/api/clients/${id}`, {method: 'DELETE', body: JSON.stringify(data)})
     router.push(`/clients`)
@@ -49,7 +45,15 @@ export default function NewClient() {
     return await res.json()
   }
 )
-
+const { register, handleSubmit} = useForm({
+  mode: "onBlur",
+  defaultValues: client})
+const onSubmit = async (data: any) => {
+ 
+  await fetch(`/api/clients/${id}`, {method: 'PUT', body: JSON.stringify(data)})
+  router.push(`/clients/${id}`)
+}
+console.log()
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
     <div>
@@ -71,28 +75,24 @@ export default function NewClient() {
             <div className="h-96 rounded-lg m-2 border-4 border border-gray-200">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                    <label>Name
-                        <input 
-                        {...register('name')}
-                        id='name'
-                        type='text'
-                        className="rounded-lg m-2 border-4 border border-gray-400"
-                        defaultValue={client?.name}
-                        >
-                        </input>
-                    </label>
+                <input {...register("name")} 
+                name="name"
+                placeholder="name"
+                className="rounded-lg m-2 border-4 border border-gray-400"
+                defaultValue={client?.name}
+                />
+                    
                 </div>
                 <div>
-                    <label>Adresse
+                    <label>Adresse</label>
                         <input 
                         {...register('address')}
-                        id="address"
-                        name="address" 
+                        name='address'
+                        type='text'
                         className="rounded-lg m-2 border-4 border border-gray-400"
                         defaultValue={client?.address}
                         >
                         </input>
-                    </label>
                 </div>
                 <div>
                 <label>Gérer les plannings
@@ -101,7 +101,7 @@ export default function NewClient() {
                         
                         name="planning" 
                         type="checkbox" 
-                        checked = {client?.planning}
+                        defaultChecked = {client?.planning}
                         className="rounded-lg border-4 m-2 border border-gray-400">
                     </input>
                 </label>
@@ -110,17 +110,16 @@ export default function NewClient() {
                         {...register('drink')}
                         name="drink" 
                         type="checkbox" 
-                        checked = {client?.drink}
+                        defaultChecked = {client?.drink}
                         className="rounded-lg border-4 m-2 border border-gray-400">
                     </input>
                 </label>
                 <label>Gérer la newsletter
                     <input 
                         {...register('newsletter')}
-                        id='newsletter'
+                        defaultChecked = {client?.newsletter}
                         name="newsletter" 
                         type="checkbox" 
-                        
                         className="rounded-lg border-4 m-2 border border-gray-400">
                     </input>
                 </label>

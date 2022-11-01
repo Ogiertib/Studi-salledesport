@@ -114,6 +114,7 @@ export default function NewFranchise() {
                   <label>Gérer les boissons
                       <input 
                           {...register('drink')}
+                          name= 'drink'
                           type="checkbox" 
                           defaultChecked = {data?.drink}
                           className="rounded-lg border-4 m-2 border border-gray-400">
