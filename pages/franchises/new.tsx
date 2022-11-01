@@ -4,13 +4,23 @@ import { useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export default function New() {
-  const { register, handleSubmit } = useForm()
+  interface IFormInputs {
+    name: string
+    address: string
+    active: boolean
+    clientId: string
+    userId: string
+  }
+
   const router = useRouter()
   const[chooseClient, setChooseClient]= useState('')
   const onSubmit = async (data: any) => {
     await fetch('/api/franchises', {method: 'POST', body: JSON.stringify(data)})
+      setRequestError(null)
       router.push('/franchises')
 }
   const { data : user } = useQuery(
@@ -27,6 +37,18 @@ export default function New() {
       return await res.json()
     }
   )
+  const schema = yup.object({
+    name: yup.string().required('Le nom est requis'),
+    address: yup.string().required("Champ à renseigner"),
+    active: yup.boolean(),
+    clientId: yup.string().required('La franchise doit appartenir a un client'),
+    userId: yup.string().required('la franchise doit appartenir a un utilisateur'),
+  }).required();
+
+  const { register, handleSubmit, formState: { errors }} = useForm<IFormInputs>({
+    resolver: yupResolver(schema)
+  })
+  const [requestError, setRequestError] = useState(null)
   return (
     <AuthenticatedLayout pageTitle={'Créer une franchise'}>
       <header className="bg-white shadow">
@@ -39,14 +61,17 @@ export default function New() {
         <div className="px-4 py-6 sm:px-0">
           <div className="h-96 rounded-lg m-2 border-4 border border-gray-200">
             <form onSubmit={handleSubmit(onSubmit)}>
+            
               <div>
                   <label>Name
                       <input {...register('name')} className="rounded-lg m-2 border-4 border border-gray-400"/>
+                      <p className='text-red-600'>{errors?.name?.message}</p>
                   </label>
               </div>
               <div>
                   <label>Adresse
                       <input {...register('address')} className="rounded-lg m-2 border-4 border border-gray-400"/>
+                      <p className='text-red-600'>{errors?.address?.message}</p>
                   </label>
               </div>
               <div>
@@ -69,6 +94,7 @@ export default function New() {
                    {user && user.map((users: any) => (
                          <option  key={users.id} value={users.id}>{users.name} {users.email}</option>))}
                 </select>
+                <p className='text-red-600'>{errors?.userId?.message}</p>
               </label>
              
               <a href={`/user/new`}>
@@ -89,6 +115,7 @@ export default function New() {
                          <option  value={client.id} key={client.id}> {client.name} </option>))}
                 </select>
               </label>
+              <p className='text-red-600'>{errors?.clientId?.message}</p>
               <div>
               </div>
               <button

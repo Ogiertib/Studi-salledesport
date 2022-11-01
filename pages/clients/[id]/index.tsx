@@ -54,10 +54,11 @@ console.log(data)
                 <p>Le client possède : </p> 
                   {data && data.franchises.map((franchise: any) => (
                     <p key={franchise.id}><strong>{franchise.name} {franchise.address} </strong>
-                         <a 
-                         href={`/franchises/${franchise?.id}`} 
-                         className="rounded-full bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" 
-                         >Voir</a>
+                        <a 
+                          href={`/franchises/${franchise?.id}`} 
+                          className="rounded-full bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" 
+                        >Voir
+                        </a>
                     </p>
                          ))}
               </div>

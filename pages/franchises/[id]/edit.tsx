@@ -8,11 +8,36 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useForm } from 'react-hook-form'
 import AuthenticatedLayout from '../../../components/AuthenticatedLayout'
 import Loader from '../../../components/Loader'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export default function NewFranchise() {
+
+  interface IFormInputs {
+    name: string
+    address: string
+    active: boolean
+    clientId: string
+    userId: string
+    planning: boolean
+    drink: boolean
+    newsletter: boolean
+  }
   const router = useRouter()
   const id = router.query.id
-  const { register, handleSubmit } = useForm()
+
+  const schema = yup.object({
+    name: yup.string().required('Le nom est requis'),
+    address: yup.string().required("Champ à renseigner"),
+    active: yup.boolean(),
+    planning: yup.boolean(),
+    newsletter: yup.boolean(),
+    drink: yup.boolean(),
+    clientId: yup.string().required('La franchise doit appartenir a un client'),
+    userId: yup.string().required('la franchise doit appartenir a un utilisateur'),
+  }).required();
+
+  const { register, handleSubmit,formState: { errors } } = useForm<IFormInputs>({resolver: yupResolver(schema)})
   const onSubmit = async (data: any) => {
     await fetch(`/api/franchises/${id}`, {method: 'PUT', body: JSON.stringify(data)})
     router.push(`/franchises/${id}`)
@@ -90,6 +115,7 @@ export default function NewFranchise() {
                         >
                         </input>
                     </label>
+                    <p className='text-red-600'>{errors?.name?.message}</p>
                 </div>
                 <div>
                     <label>Adresse
@@ -100,6 +126,7 @@ export default function NewFranchise() {
                         >
                         </input>
                     </label>
+                    <p className='text-red-600'>{errors?.address?.message}</p>
                 </div>
                 <div>
                 <label>Active
@@ -112,6 +139,7 @@ export default function NewFranchise() {
                         >
                     </input>
                 </label>
+                <p className='text-red-600'>{errors?.active?.message}</p>
                 </div>
                 <div>
                   <label>Gérer les boissons
@@ -161,6 +189,7 @@ export default function NewFranchise() {
                     </button>
                 </a>
                 </div>
+                <p className='text-red-600'>{errors?.userId?.message}</p>
                 <div>
                 <label>La franchises appartient au client :
                 <select 
@@ -172,7 +201,7 @@ export default function NewFranchise() {
                          <option value={client.id} key={client.id}> {client.name} </option>))}
                 </select>
               </label>
-                
+              <p className='text-red-600'>{errors?.clientId?.message}</p>
                 </div>
                 <button
                     onClick={openUpdateModal}

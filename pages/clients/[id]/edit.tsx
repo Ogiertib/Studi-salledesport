@@ -9,12 +9,32 @@ import { useForm } from 'react-hook-form'
 import AuthenticatedLayout from '../../../components/AuthenticatedLayout'
 import { useSession } from 'next-auth/react'
 import Loader from '../../../components/Loader'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export default function NewClient() {
   const session = useSession()
   const userData : any = session.data
   const router = useRouter()
   const id = router.query.id
+  interface IFormInputs {
+    name: string
+    address: string
+    active: boolean
+    newsletter: boolean
+    drink: boolean
+    planning: boolean
+    userId: string
+  }
+  const schema = yup.object({
+    name: yup.string().required('Le nom est requis'),
+    address: yup.string().required('Le siege social est requis'),
+    active: yup.boolean(),
+    planning: yup.boolean(),
+    newsletter: yup.boolean(),
+    drink: yup.boolean(),
+    userId: yup.string().required('la franchise doit appartenir à un utilisateur'),
+  }).required();
 
   const { data : client} = useQuery(
     ['clients', id],
@@ -49,9 +69,9 @@ export default function NewClient() {
     return await res.json()
   }
 )
-const { register, handleSubmit} = useForm({
-  mode: "onBlur",
-})
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>({
+    resolver: yupResolver(schema)
+  })
 
 const onSubmit = async (data: any) => {
   await fetch(`/api/clients/${id}`, {method: 'PUT', body: JSON.stringify(data)})
@@ -82,14 +102,15 @@ if(!client) return(
             <div className="h-96 rounded-lg m-2 border-4 border border-gray-200">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
+                <label>Nom </label>
                 <input 
+                 {...register('name')}
                 name="name"
-                placeholder="name"
                 className="rounded-lg m-2 border-4 border border-gray-400"
                 defaultValue={client?.name}
-                />
-                    
+                />  
                 </div>
+                <p className='text-red-600'>{errors?.name?.message}</p>
                 <div>
                     <label>Adresse</label>
                         <input 
@@ -100,6 +121,7 @@ if(!client) return(
                         defaultValue={client?.address}
                         >
                         </input>
+                        <p className='text-red-600'>{errors?.address?.message}</p>
                 </div>
                 <div>
                 <label>Gérer les plannings
@@ -151,6 +173,7 @@ if(!client) return(
                         <PlusIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
                 </a>
+                <p className='text-red-600'>{errors?.userId?.message}</p>
                 </div>
                 <button 
                     type="button" 

@@ -7,16 +7,40 @@ import { useQuery } from 'react-query';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import AuthenticatedLayout from '../../components/AuthenticatedLayout';
-
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 
 export default function New() {
-  const { register, handleSubmit } = useForm()
+  interface IFormInputs {
+    name: string
+    address: string
+    active: boolean
+    newsletter: boolean
+    drink: boolean
+    planning: boolean
+    userId: string
+  }
+  const schema = yup.object({
+    name: yup.string().required('Le nom est requis'),
+    address: yup.string().required('Le siege social est requis'),
+    active: yup.boolean(),
+    planning: yup.boolean(),
+    newsletter: yup.boolean(),
+    drink: yup.boolean(),
+    userId: yup.string().required('la franchise doit appartenir à un utilisateur'),
+  }).required();
+
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>({
+    resolver: yupResolver(schema)
+  })
   const router = useRouter()
-  const onSubmit = async (data: any) => {
+
+  const onSubmit = async (data : any) => {
       await fetch('/api/clients', {method: 'POST', body: JSON.stringify(data)})
-     router.push('/clients')
+      router.push('/clients')
     }
+
   const { data } = useQuery(
     'clients',
     async () => {
@@ -28,8 +52,6 @@ export default function New() {
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
     <div>
-      
-
       <main>
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
@@ -49,11 +71,13 @@ export default function New() {
                 <div>
                     <label>Nom du client
                         <input {...register('name')} name="name"className="rounded-lg m-2 border-4 border border-gray-400"></input>
+                        <p className='text-red-600'>{errors?.name?.message}</p>
                     </label>
                 </div>
                 <div>
                     <label>Siège sociale
                         <input {...register('address')} name="address" className="rounded-lg w-200 m-2 w-900 border-4 border border-gray-400"></input>
+                        <p className='text-red-600'>{errors?.address?.message}</p>
                     </label>
                 </div>
                 <div>
@@ -103,6 +127,7 @@ export default function New() {
                   <PlusIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
               </a>
+              <p className='text-red-600'>{errors?.userId?.message}</p>
                 </div>
                 <button
                   onClick={handleSubmit(onSubmit)}
