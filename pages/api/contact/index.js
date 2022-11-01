@@ -21,7 +21,7 @@ export default async function handler(req , res) {
 		});
 	}
 
-	sgMail.setApiKey(env(SENDGRID_API_KEY));
+	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 	const sendGridMail = {
 		to: email,
@@ -37,6 +37,6 @@ export default async function handler(req , res) {
 		await sgMail.send(sendGridMail)
 		return res.status(200).json(true)
 	} catch(e) {
-		return res.status(500).json(e)
+		return res.status(500).json(console.log(e))
 	}
 }
