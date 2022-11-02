@@ -41,8 +41,8 @@ export default function New() {
     name: yup.string().required('Le nom est requis'),
     address: yup.string().required("Champ à renseigner"),
     active: yup.boolean(),
-    clientId: yup.string().required('La franchise doit appartenir a un client'),
-    userId: yup.string().required('la franchise doit appartenir a un utilisateur'),
+    clientId: yup.string().required('La franchise doit appartenir à un client'),
+    userId: yup.string().required('La franchise doit appartenir à un utilisateur'),
   }).required();
 
   const { register, handleSubmit, formState: { errors }} = useForm<IFormInputs>({

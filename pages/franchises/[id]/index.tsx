@@ -45,7 +45,7 @@ export default function Client() {
                 </a>
             </div>}
           <div className="px-4 py-6 sm:px-0">
-            <div className="h-auto m-2 rounded-lg border-4 border border-gray-400">
+            <div className="h-auto bg-gray-100 m-2 rounded-lg border-4 border border-gray-400">
               <p>Nom de la franchise :<strong>{data?.name}</strong></p>
               <p>La franchise est : <strong>{data?.active ? 'Active' : 'Désactivé'}</strong></p>
               <p>Adresse de la franchise :<strong>{data?.address}</strong></p>
@@ -56,12 +56,13 @@ export default function Client() {
                 </strong>
                 </p>
               <div className="flex">
-                  <p>Client : <strong>{data?.client.name} </strong> </p> 
-                  <a 
-                    href={`/clients/${data?.clientId}`} 
-                    className="rounded-full bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" 
-                  > Voir
-                  </a>
+                  <p>Client : <strong> {data?.client.name} </strong> 
+                    <a 
+                      href={`/clients/${data?.clientId}`} 
+                      className="rounded-full bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" 
+                    >voir
+                    </a> 
+                  </p> 
               </div>
             </div>
           </div>

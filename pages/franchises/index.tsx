@@ -30,11 +30,11 @@ export default function Index() {
         </div>
       </header>
 
-        <div className="mx-auto m-2 max-w-7xl py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto m-2  content-center max-w-7xl py-4 sm:px-6 lg:px-8">
           <div>
-            <div className='grid grid-cols-4'>
+            <div className='grid  grid-cols-4'>
             <input
-              className="rounded-lg m-2 border-4 border border-gray-400"
+              className="rounded-lg  m-2 border-4 border border-gray-400"
               type="text"
               name="searchBar"
               id="searchBar"
@@ -42,14 +42,14 @@ export default function Index() {
               placeholder='Rechercher'
               onChange={(e) => {setSearchTerm(e.target.value)}}
             />
-            <label className='col-span-1  m-2'>
+            <div>
               <input
                 type="checkbox"
                 checked={checked}
                 onChange={handleChange}
               />
-              Franchise Active
-            </label>
+             <label className='col-span-1  m-2'>Franchise active</label>
+            </div>
             {userData?.role == 1 && 
               <a href="franchises/new" className='col-end-5'> Ajouter une franchise
                   <button
@@ -67,13 +67,13 @@ export default function Index() {
                 return item.name.toUpperCase().includes(searchTerm.toUpperCase()) 
                 && checked ? item.active : item.name.toUpperCase().includes(searchTerm.toUpperCase()) 
             }).map((item : any) => (
-             <div className=" m-2 rounded-lg border-4 border border-gray-400 hover:text-gray-400">
+             <div className=" m-2 rounded-lg bg-gray-50 border-4 border border-gray-400 hover:text-gray-400">
                <a href={`/franchises/${item.id}`} >
                 <div key={item.id} >
-                  <p>Nom : {item?.name}</p>
+                  <p>Nom : <strong>{item?.name}</strong></p>
                   <p>La franchise est : {item.active ? "Active" : "Désactive"}</p>
                   <p>Contact : {item?.user.email}</p>
-                  <p>Le client peut : {item.drink ? 'Vendre des boissons' : ''} {item.planning ? 'Gérer les plannings' : ''} {item.newsletter ? 'Gérer les newsletter': ''}
+                  <p>Le client peut : {item.drink ? 'Vendre des boissons' : ''} {item.planning ? 'Gérer les plannings' : ''} {item.newsletter ? 'Gérer les newsletters': ''}
                 </p>
                 </div>
               </a>

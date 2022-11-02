@@ -23,12 +23,12 @@ export default function New() {
   }
   const schema = yup.object({
     name: yup.string().required('Le nom est requis'),
-    address: yup.string().required('Le siege social est requis'),
+    address: yup.string().required('Le siège social est requis'),
     active: yup.boolean(),
     planning: yup.boolean(),
     newsletter: yup.boolean(),
     drink: yup.boolean(),
-    userId: yup.string().required('la franchise doit appartenir à un utilisateur'),
+    userId: yup.string().required('La franchise doit appartenir à un utilisateur'),
   }).required();
 
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>({

@@ -51,6 +51,8 @@ const PublicLayout = ({
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-1 items-center">
+                    <a href="/" className='block px-4 py-2 text-sm text-gray-700'>
+                           
                     <Image
                       className="block h-8 w-auto lg:hidden invert"
                       src="/salledesport.png"
@@ -65,9 +67,10 @@ const PublicLayout = ({
                       width={800}
                       height={800}
                     />
+                    </a>
                   </div>
                 </div>
-                <div className="absolute inset-y-0 right-0 flex items-center text-white pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <div className="absolute hover:text-gray-400 inset-y-0 right-0 flex items-center text-white pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {/* Profile dropdown */}
                   <button onClick={() => signIn()}>Se connecter</button>
                 </div>

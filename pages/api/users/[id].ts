@@ -1,4 +1,3 @@
-import { UsersIcon } from '@heroicons/react/24/outline'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../lib/prisma'
 
@@ -14,9 +13,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(200).json(user)
       break
     case 'PUT':
-      const body = JSON.parse(req.body)
       const updatedUser = await prisma.user.update({
-        where: {email: body.email as string},
+        where: {id: id as string},
         data: JSON.parse(req.body)
       })
       res.status(200).json(updatedUser)

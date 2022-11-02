@@ -21,7 +21,7 @@ export default async function handler(req , res) {
 		});
 	}
 
-	sgMail.setApiKey('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');
+	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 	const sendGridMail = {
 		to: email,

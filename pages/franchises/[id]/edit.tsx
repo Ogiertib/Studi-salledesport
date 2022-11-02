@@ -33,8 +33,8 @@ export default function NewFranchise() {
     planning: yup.boolean(),
     newsletter: yup.boolean(),
     drink: yup.boolean(),
-    clientId: yup.string().required('La franchise doit appartenir a un client'),
-    userId: yup.string().required('la franchise doit appartenir a un utilisateur'),
+    clientId: yup.string().required('La franchise doit appartenir à un client'),
+    userId: yup.string().required('La franchise doit appartenir à un utilisateur'),
   }).required();
 
   const { register, handleSubmit,formState: { errors } } = useForm<IFormInputs>({resolver: yupResolver(schema)})
@@ -107,7 +107,7 @@ export default function NewFranchise() {
             <div className="h-96 rounded-lg m-2 border-4 border border-gray-200">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                    <label>Name
+                    <label>Nom
                         <input 
                           {...register('name')}
                           className="rounded-lg m-2 border-4 border border-gray-400"
@@ -239,7 +239,7 @@ export default function NewFranchise() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                   Etes vous sur de vouloir modifier la franchise?
+                   Etes vous sûr de vouloir modifier la franchise?
                   </Dialog.Title>
                   <div className="mt-2">
                   </div>
@@ -309,7 +309,7 @@ export default function NewFranchise() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                   Etes vous sur de vouloir supprimer la franchise?
+                   Etes vous sûr de vouloir supprimer la franchise?
                   </Dialog.Title>
                   <div className="mt-2">
                   </div>

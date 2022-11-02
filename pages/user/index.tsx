@@ -22,7 +22,7 @@ export default  function Index() {
             <div className="h-96 rounded-lg border-4 border border-gray-200">
              <p>Nom : {data?.name} </p>
               <p>Email : {data?.email}</p>
-              <p>role : {data?.role}</p>
+              <p>rôle : {data?.role}</p>
             </div>
           </div>
         </div>

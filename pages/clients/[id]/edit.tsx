@@ -28,12 +28,12 @@ export default function NewClient() {
   }
   const schema = yup.object({
     name: yup.string().required('Le nom est requis'),
-    address: yup.string().required('Le siege social est requis'),
+    address: yup.string().required('Le siège social est requis'),
     active: yup.boolean(),
     planning: yup.boolean(),
     newsletter: yup.boolean(),
     drink: yup.boolean(),
-    userId: yup.string().required('la franchise doit appartenir à un utilisateur'),
+    userId: yup.string().required('La franchise doit appartenir à un utilisateur'),
   }).required();
 
   const { data : client} = useQuery(
@@ -143,7 +143,7 @@ if(!client) return(
                         className="rounded-lg border-4 m-2 border border-gray-400">
                     </input>
                 </label>
-                <label>Gérer la newsletter
+                <label>Gérer les newsletters
                     <input 
                         {...register('newsletter')}
                         defaultChecked = {client?.newsletter}
@@ -211,7 +211,7 @@ if(!client) return(
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                   Etes vous sur de vouloir modifier le client?
+                   Etes vous sûr de vouloir modifier le client?
                   </Dialog.Title>
                   <div className="mt-2">
                   </div>
@@ -280,7 +280,7 @@ if(!client) return(
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                   Etes vous sur de vouloir supprimer le client?
+                   Etes vous sûr de vouloir supprimer le client?
                   </Dialog.Title>
                   <div className="mt-2">
                   </div>

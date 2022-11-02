@@ -63,7 +63,7 @@ export default function Index() {
                   <div className=" m-2 rounded-lg border-4 border border-gray-400 hover:text-gray-400">
                     <a href={`/clients/${item?.id}`} >
                       <div key={item?.id} >
-                        <p>Nom : {item?.name}</p>
+                        <p>Nom : <strong>{item?.name}</strong></p>
                         <p>Adresse : {item?.address}</p>
                         <p>Contact : {item?.user?.email}</p>
                         <p>Le client peut : {item?.drink ? 'Vendre des boissons' : ''} {item?.planning ? 'Gérer les plannings' : ''} {item?.newsletter ? 'Gérer les newsletter': ''}

@@ -16,10 +16,10 @@ export default function NewMdp() {
       }
 
     const schema = yup.object({
-        email: yup.string().email().required('champs est requis'),
-        token: yup.string().required('champs est requis').matches(/(sport1234)/),
-        password: yup.string().required("Vous devez choisir un mot de passe sécurisé").min(6 , 'le mot de passe doit contenir 6 caractères minimum'),
-        passwordOk: yup.string().required().oneOf([yup.ref('password'), null ],'les mots de passe doivent correspondrent') 
+        email: yup.string().email().required('Champ requis'),
+        token: yup.string().required('Champ requis').matches(/(sport1234)/),
+        password: yup.string().required("Vous devez choisir un mot de passe sécurisé").min(6 , '6 caractères minimum'),
+        passwordOk: yup.string().required().oneOf([yup.ref('password'), null ],'Les mots de passe doivent correspondre') 
       }).required();
 
   const router = useRouter()
@@ -47,7 +47,7 @@ export default function NewMdp() {
 <>
       <header className="bg-white shadow">
         <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Choisiser un mot de passe</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Choisir un mot de passe</h1>
         </div>
       </header>
 
