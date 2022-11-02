@@ -56,20 +56,22 @@ const AuthenticatedLayout = ({
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-1 items-center">
-                    <Image
-                      className="block h-8 w-auto lg:hidden invert"
-                      src="/salledesport.png"
-                      alt="SalleDeSport"
-                      width={100}
-                      height={1000}
-                    />
-                    <Image
-                      className="hidden h-8 w-auto lg:block fill-white invert"
-                      src="/salledesport.png"
-                      alt="Your Company"
-                      width={800}
-                      height={800}
-                    />
+                    <a href="/" className=''>  
+                      <Image
+                        className="block h-8 w-auto lg:hidden invert"
+                        src="/salledesport.png"
+                        alt="SalleDeSport"
+                        width={100}
+                        height={1000}
+                      />
+                      <Image
+                        className="hidden h-8 w-auto lg:block fill-white invert"
+                        src="/salledesport.png"
+                        alt="Your Company"
+                        width={800}
+                        height={800}
+                      />
+                    </a>
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">

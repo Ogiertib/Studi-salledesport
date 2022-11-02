@@ -53,7 +53,7 @@ export default function NewMdp() {
 
       <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <div className="px-4 m-2 py-6 sm:px-0">
-          <div className="h-140 m-2 rounded-lg border-4 border border-gray-400">
+          <div className="h-auto bg-gray-50 m-2 rounded-lg border-4 border border-gray-400">
             <form onSubmit={handleSubmit(onSubmit)}>
            
               <div className='m-2'>

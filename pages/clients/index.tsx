@@ -24,15 +24,15 @@ export default function Index() {
   
       <header className="bg-white shadow">
         <div className="mx-auto m-2 max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Client</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Clients</h1>
         </div>
       </header>
 
       <main>
      
         <div className="w-full  py-2 sm:px-6 lg:px-17">
-          {<div className='w-full'>
-            <div>
+          {<div className=''>
+            <div className='flex justify-between'>
              <input     
                 className="rounded-lg m-2 border-4 border border-gray-400"
                  type="text"
@@ -60,7 +60,7 @@ export default function Index() {
                 return item?.name.toUpperCase().includes(searchTerm.toUpperCase())
               }).map((item: any) => (
                 <div>
-                  <div className=" m-2 rounded-lg border-4 border border-gray-400 hover:text-gray-400">
+                  <div className=" m-2 rounded-lg bg-gray-50 border-4 border border-gray-400 hover:text-gray-400">
                     <a href={`/clients/${item?.id}`} >
                       <div key={item?.id} >
                         <p>Nom : <strong>{item?.name}</strong></p>

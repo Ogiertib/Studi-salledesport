@@ -104,7 +104,7 @@ export default function NewFranchise() {
             </div>
           <div className="px-4 py-6 sm:px-0">
             
-            <div className="h-96 rounded-lg m-2 border-4 border border-gray-200">
+            <div className="h-auto bg-gray-50 rounded-lg m-2 border-4 border border-gray-200">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label>Nom

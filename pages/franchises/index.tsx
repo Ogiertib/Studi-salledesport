@@ -30,11 +30,11 @@ export default function Index() {
         </div>
       </header>
 
-        <div className="mx-auto m-2  content-center max-w-7xl py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto m-2 max-w-7xl py-4 sm:px-6 lg:px-8">
           <div>
-            <div className='grid  grid-cols-4'>
+            <div className='flex justify-between grid content-end'>
             <input
-              className="rounded-lg  m-2 border-4 border border-gray-400"
+              className="rounded-lg m-2 border-4 border border-gray-400"
               type="text"
               name="searchBar"
               id="searchBar"
@@ -42,21 +42,22 @@ export default function Index() {
               placeholder='Rechercher'
               onChange={(e) => {setSearchTerm(e.target.value)}}
             />
-            <div>
+            <div className='mt-2'>
               <input
                 type="checkbox"
                 checked={checked}
                 onChange={handleChange}
               />
-             <label className='col-span-1  m-2'>Franchise active</label>
+             <label> Franchise active</label>
             </div>
             {userData?.role == 1 && 
-              <a href="franchises/new" className='col-end-5'> Ajouter une franchise
+              <a href="franchises/new" className='col-end-5'> 
+                <label>Ajouter une franchise </label>
                   <button
                     type="button"
-                    className=" rounded-full m-2 bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className=" rounded-full bg-green-700 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
-                      <PlusIcon className="h-6 w-6" aria-hidden="true" />
+                    <PlusIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
               </a>
                 }

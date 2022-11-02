@@ -20,9 +20,9 @@ export default  function Index() {
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
             <div className="h-96 rounded-lg border-4 border border-gray-200">
-             <p>Nom : {data?.name} </p>
-              <p>Email : {data?.email}</p>
-              <p>rôle : {data?.role}</p>
+             <p className="text-xl grid">Nom : {data?.name} </p>
+              <p className=" text-xl grid ">Email : {data?.email}</p>
+              <p className="text-xl grid">rôle : {data?.role}</p>
             </div>
           </div>
         </div>

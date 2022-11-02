@@ -46,7 +46,7 @@ console.log(data)
                 </div>}
           <div className="px-4 py-6 sm:px-0">
             
-            <div className="h-auto rounded-lg border-4 border border-gray-400">
+            <div className="h-auto bg-gray-50 rounded-lg border-4 border border-gray-400">
               <p>Nom du client :<strong>{data?.name}</strong> </p>
               <p>Siège social : <strong>{data?.address}</strong></p>
               <p>Contact : <strong>{data?.user.email}</strong></p>
