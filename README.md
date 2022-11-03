@@ -1,6 +1,11 @@
 Bonjour pour vous authentifier en tant qu'admin vous pouvez utiliser l'email admin@sport.com et le mot de passe sport1234
 pour vous connecter comme un utilisateur vous pouvez utiliser l'email client@sport.com et le mot de passe sport1234
 
+pour démarer le projet en local vous pouvez lancer prisma studio avec la commande npx prisma studio ce qui lance le wiever de la base de donnée 
+et la commande yarn dev qui lance le serveur en local 
+bien a vous 
+Ogier 
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

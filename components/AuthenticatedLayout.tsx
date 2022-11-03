@@ -22,6 +22,7 @@ const AuthenticatedLayout = ({
   children
 }: AuthenticatedLayoutProps) => {
   const session = useSession()
+  const userData : any = session.data
   const router = useRouter()
 
   if (session.status === 'loading') {
@@ -75,19 +76,30 @@ const AuthenticatedLayout = ({
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
-                      {navigation.map((item) => (
+                    {(userData?.role == 1 || userData?.role == 3) && 
                         <Link
-                          key={item.name}
-                          href={item.href}
+                          href={'/franchises'}
                           className={
-                            clsx(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            clsx(false ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                             'px-3 py-2 rounded-md text-sm font-medium'
                             )}
-                          aria-current={item.current ? 'page' : undefined}
+                          aria-current={false ? 'page' : undefined}
                         >
-                          {item.name}
+                          Franchises
                         </Link>
-                      ))}
+                    }
+                     {(userData?.role == 1 || userData?.role == 2) && 
+                        <Link
+                          href={'/clients'}
+                          className={
+                            clsx(false ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            'px-3 py-2 rounded-md text-sm font-medium'
+                            )}
+                          aria-current={false ? 'page' : undefined}
+                        >
+                          Clients
+                        </Link>
+                    }
                     </div>
                   </div>
                 </div>
@@ -138,20 +150,33 @@ const AuthenticatedLayout = ({
 
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 px-2 pt-2 pb-3">
-                {navigation.map((item) => (
+              {(userData?.role == 1 || userData?.role == 3) && 
                   <Disclosure.Button
-                    key={item.name}
                     as="a"
-                    href={item.href}
+                    href={'/franchises'}
                     className={clsx(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      false ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'block px-3 py-2 rounded-md text-base font-medium'
                     )}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={false ? 'page' : undefined}
                   >
-                    {item.name}
+                    Franchises
                   </Disclosure.Button>
-                ))}
+                }
+                 {(userData?.role == 1 || userData?.role == 3) && 
+                  <Disclosure.Button
+                 
+                    as="a"
+                    href={'/clients'}
+                    className={clsx(
+                      false ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      'block px-3 py-2 rounded-md text-base font-medium'
+                    )}
+                    aria-current={false ? 'page' : undefined}
+                  >
+                    Clients
+                  </Disclosure.Button>
+                }
               </div>
             </Disclosure.Panel>
           </>

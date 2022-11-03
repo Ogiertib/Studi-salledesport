@@ -159,8 +159,10 @@ if(!client) return(
                         {...register('userId')}
                         className="rounded-lg m-2 border-4 border border-gray-400"
                         > <option selected={true} value={client?.user.id}>{client?.user.email}</option>
-                          {user && user.map((user: any) => (
-                          <option  key={user.id} value={user.id}>{user.email}</option>
+                         {user?.filter((item :any)=>{
+                          return item?.role.includes(2)            
+                    }).map((item : any) => (
+                          <option  key={item.id} value={item.id}>{item.email}</option>
               ))}
                     </select>
                 </label>

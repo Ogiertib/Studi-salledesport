@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { useSession } from 'next-auth/react'
 
 export default function New() {
   interface IFormInputs {
@@ -15,7 +16,8 @@ export default function New() {
     clientId: string
     userId: string
   }
-
+  const session = useSession()
+  const userData : any = session.data
   const router = useRouter()
   const[chooseClient, setChooseClient]= useState('')
   const onSubmit = async (data: any) => {
@@ -49,6 +51,7 @@ export default function New() {
     resolver: yupResolver(schema)
   })
   const [requestError, setRequestError] = useState(null)
+
   return (
     <AuthenticatedLayout pageTitle={'Créer une franchise'}>
       <header className="bg-white shadow">
@@ -91,12 +94,14 @@ export default function New() {
                   name="userId"
                   className="rounded-lg m-2 border-4 border border-gray-400"
                 >
-                   {user && user.map((users: any) => (
-                         <option  key={users.id} value={users.id}>{users.name} {users.email}</option>))}
+                   {user?.filter((item :any)=>{
+                return item.role.includes(3) 
+              }).map((item : any) => ( 
+                         <option  key={item.id} value={item.id}>{item.name} {item.email}</option>))}
                 </select>
               </label>
               <a href={`/user/new`}>
-                Ajouter un contact
+                Ajouter un contact bonjour
                 <button
                   type="button"
                   className="rounded-full bg-green-700 m-2 p-1 text-neutral-50 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -111,8 +116,11 @@ export default function New() {
                   name="clientId"
                   className="rounded-lg m-2 border-4 border border-gray-400"
                 >
-                  {client && client.map((client: any) => (
-                         <option  value={client.id} key={client.id}> {client.name} </option>))}
+                  {client?.filter((item :any)=>{
+                return item.user.role.includes(2)            
+                    }).map((item : any) => ( 
+                         <option  value={item.id} key={item.id}> {item.name} </option> 
+                ))}
                 </select>
               </label>
               <p className='text-red-600'>{errors?.clientId?.message}</p>

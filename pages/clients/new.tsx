@@ -48,7 +48,7 @@ export default function New() {
       return await res.json()
     }
   )
-  
+  console.log(data)
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
     <div>
@@ -114,8 +114,10 @@ export default function New() {
                         name="userId" 
                         className="rounded-lg m-2 border-4 border border-gray-400"
                         >
-                       {data && data.map((user: any) => (
-                         <option  key={user.id} value={user.id} >{user.email}</option>))}
+                        {data?.filter((item :any)=>{
+                return item?.role.includes(2)            
+                    }).map((item : any) => (
+                         <option  key={item.id} value={item.id} >{item.email}</option>))}
                     </select>
                 </label>
                 <a href={`/user/new`}>

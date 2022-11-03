@@ -16,7 +16,7 @@ export default function Index() {
       return await res.json()
     }
   )
-  console.log(data)
+ 
   const [searchTerm, setSearchTerm]= useState("")
   return (
     <AuthenticatedLayout pageTitle={'Client'}>
@@ -39,7 +39,7 @@ export default function Index() {
                  name="searchBar"
                  id="searchBar"
                  value={searchTerm}
-                 placeholder='Rechercher'
+                 placeholder='Rechercher par nom'
                  onChange={(e) => {setSearchTerm(e.target.value)}}
              />
                 {userData?.role == 1 &&
@@ -54,6 +54,7 @@ export default function Index() {
                 }
                 </div>
             </div>}
+            {userData?.role == 1 && 
           <div className="px-4 py-6 sm:px-0">
             <div className="h-auto rounded-lg border-4 border border-gray-300">          
               {data?.filter((item :any)=>{
@@ -73,9 +74,29 @@ export default function Index() {
                 </div>
               </div>
               ))}
-
             </div>
           </div>
+          }
+          <div className="h-auto rounded-lg border-4 border border-gray-300">
+          {data?.filter((item :any)=>{
+                return item.user.email.includes(userData?.email) && item.name.toUpperCase().includes(searchTerm.toUpperCase())          
+            }).map((item : any) => (
+             <div className=" m-2 rounded-lg bg-gray-50 border-4 border border-gray-400 hover:text-gray-400">
+               <a href={`/clients/${item.id}`} >
+                <div key={item.id}>
+                {(userData?.email == item?.user?.email || userData.id == item.client.userId) && 
+                <>
+                  <p>Nom : <strong>{item?.name}</strong></p>
+                  <p>La franchise est : {item.active ? "Active" : "Désactive"}</p>
+                  <p>Contact : {item?.user.email}</p>
+                  <p>Le client peut : {item.drink ? 'Vendre des boissons' : ''} {item.planning ? 'Gérer les plannings' : ''} {item.newsletter ? 'Gérer les newsletters': ''}
+                  </p>
+                  </>}
+                </div>
+              </a>
+              </div>
+            ))}
+            </div>
           {}
         </div>
       </main>

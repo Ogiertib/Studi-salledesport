@@ -175,9 +175,11 @@ export default function NewFranchise() {
                         {...register('userId')}
                         className="rounded-lg m-2 border-4 border border-gray-400"
                         > <option selected={true} value={franchise.user.id}>{franchise.user.email}</option>
-                          {user && user.map((users: any) => (
-                          <option key={users.id} value={users.id}>{users.email}</option>
-              ))}
+                      {user?.filter((item :any)=>{
+                        return item.role.includes(3) 
+                        }).map((item : any) => (
+                          <option key={item.id} value={item.id}>{item.email}</option>
+                      ))}
                     </select>
                 </label>
                 <a href={`/user/new`}>Ajouter un contact
@@ -197,8 +199,10 @@ export default function NewFranchise() {
                   className="rounded-lg m-2 border-4 border border-gray-400"   
                 > 
                   <option selected={true} value={franchise.client.id}> {franchise.client.name} </option>
-                  {client && client.map((client: any) => (
-                         <option value={client.id} key={client.id}> {client.name} </option>))}
+                  {client?.filter((item :any)=>{
+                return item.user.role.includes(2)            
+                    }).map((item : any) => (
+                         <option value={item.id} key={item.id}> {item.name} </option>))}
                 </select>
               </label>
               <p className='text-red-600'>{errors?.clientId?.message}</p>
