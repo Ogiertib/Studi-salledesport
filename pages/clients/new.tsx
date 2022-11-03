@@ -48,7 +48,7 @@ export default function New() {
       return await res.json()
     }
   )
-  console.log(data)
+ 
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
     <div>

@@ -82,7 +82,7 @@ export default function NewFranchise() {
       return await res.json()
     }
   )
-  console.log(franchise)
+  
 
   if(!franchise) return( 
     <Loader />
