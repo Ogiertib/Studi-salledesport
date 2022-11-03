@@ -19,7 +19,7 @@ export default function Client() {
     return await res.json()
   }
 )
-console.log(data)
+
 
   return (
     <AuthenticatedLayout pageTitle={'Franchises'}>
